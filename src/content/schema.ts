@@ -219,7 +219,7 @@ const YEAR_MONTH_PATTERN = /^\d{4}(?:-(0[1-9]|1[0-2]))?$/;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PLACEHOLDER_PATTERN = /\b(TODO|TBD|FIXME|lorem ipsum)\b|\byour name\b/i;
 const EXAMPLE_LEFTOVER_PATTERN =
-  /\bexample\.(?:com|org|net)\b|\bfictional example profile\b|github\.com\/GuilhermeMikin\/ai-portfolio-template\b/i;
+  /\bexample\.(?:com|org|net)\b|\bfictional example profile\b|\bperfil de exemplo fict[ií]cio\b|github\.com\/GuilhermeMikin\/ai-portfolio-template\b/i;
 
 function walkStrings(value: unknown, path: string, visit: (path: string, value: string) => void) {
   if (typeof value === "string") {

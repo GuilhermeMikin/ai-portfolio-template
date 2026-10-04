@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "pageTitle": "{page} · {name}",
+    "exampleNotice": "Perfil de exemplo: {name} é uma pessoa fictícia usada para demonstrar este template.",
+    "descriptions": {
+      "about": "Sobre {name}: trajetória, áreas de foco, habilidades e formação.",
+      "projects": "Projetos selecionados de {name}, com a função, as ferramentas usadas e os links.",
+      "resume": "O currículo de {name}: experiência, formação e habilidades.",
+      "contact": "Como entrar em contato com {name}, disponibilidade atual e tempo de resposta."
+    }
+  },
+  "nav": {
+    "label": "Principal",
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "resume": "Currículo",
+    "contact": "Contato",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "language": "Idioma",
+    "themeToDark": "Mudar para o tema escuro",
+    "themeToLight": "Mudar para o tema claro",
+    "skipToContent": "Pular para o conteúdo",
+    "backToTop": "Voltar ao topo"
+  },
+  "common": {
+    "present": "Atual",
+    "periodRange": "{start} – {end}",
+    "opensInNewTab": "(abre em uma nova aba)",
+    "role": "Função",
+    "stack": "Stack",
+    "links": "Links"
+  },
+  "home": {
+    "viewProjects": "Ver projetos",
+    "getInTouch": "Fale comigo",
+    "featuredTitle": "Projetos em destaque",
+    "allProjects": "Todos os projetos",
+    "experienceTitle": "Experiência recente",
+    "viewResume": "Ver currículo completo",
+    "aboutTitle": "Sobre",
+    "aboutCta": "Mais sobre {firstName}",
+    "contactTitle": "Vamos conversar",
+    "contactText": "Tem um projeto, uma vaga ou uma dúvida em mente? {firstName} gostaria de saber mais.",
+    "contactCta": "Falar com {firstName}"
+  },
+  "about": {
+    "title": "Sobre",
+    "heading": "Sobre {name}",
+    "highlightsTitle": "Áreas de foco",
+    "skillsTitle": "Habilidades",
+    "educationTitle": "Formação",
+    "certificationsTitle": "Certificações",
+    "languagesTitle": "Idiomas",
+    "interestsTitle": "Além do trabalho"
+  },
+  "projects": {
+    "title": "Projetos",
+    "intro": "Uma seleção do trabalho de {firstName}: o que foi construído, por que fez diferença e as ferramentas por trás de cada projeto.",
+    "otherCategory": "Outros projetos"
+  },
+  "resume": {
+    "title": "Currículo",
+    "experienceTitle": "Experiência",
+    "educationTitle": "Formação",
+    "skillsTitle": "Habilidades",
+    "certificationsTitle": "Certificações",
+    "languagesTitle": "Idiomas",
+    "downloadPdf": "Baixar PDF",
+    "updated": "Atualizado em {date}"
+  },
+  "contact": {
+    "title": "Contato",
+    "intro": "A forma mais rápida de falar com {firstName} é por e-mail.",
+    "emailLabel": "E-mail",
+    "socialTitle": "Outros canais",
+    "availabilityTitle": "Disponibilidade",
+    "responseTimeTitle": "Tempo de resposta",
+    "locationTitle": "Localização",
+    "form": {
+      "title": "Envie uma mensagem",
+      "description": "Sua mensagem vai direto para a caixa de entrada de {firstName}. Ela não fica armazenada neste site.",
+      "name": "Nome",
+      "email": "E-mail",
+      "reason": "Motivo (opcional)",
+      "reasonPlaceholder": "Escolha uma opção",
+      "reasons": [
+        "Oportunidade de emprego",
+        "Projeto freelance",
+        "Colaboração",
+        "Outro assunto"
+      ],
+      "message": "Mensagem",
+      "messagePlaceholder": "Sobre o que você gostaria de conversar?",
+      "required": "Obrigatório",
+      "submit": "Enviar mensagem",
+      "sending": "Enviando…",
+      "success": "Agradeço o contato! Sua mensagem foi enviada.",
+      "error": "Não foi possível enviar sua mensagem. Tente novamente ou use o e-mail.",
+      "rateLimited": "Muitas mensagens enviadas da sua rede. Tente novamente mais tarde."
+    },
+    "introNoEmail": "Você pode falar com {firstName} pelos links abaixo."
+  },
+  "footer": {
+    "copyright": "© {year} {name}",
+    "socialLabel": "Redes sociais"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "Esta página não existe ou mudou de endereço.",
+    "backHome": "Voltar ao início"
+  }
+}
