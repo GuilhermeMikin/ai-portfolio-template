@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 /*
- * Theme tokens — edit these to re-color the whole site.
+ * Theme tokens — edit these to re-color the whole site. `:root` holds the light theme;
+ * the dark theme below redefines the same tokens.
  *
  * Values are RGB channels so Tailwind opacity modifiers keep working (`bg-ink/5`).
  * Components only use the token names (canvas, surface, subtle, ink, muted, line,
- * strong, on-strong); see tailwind.config.ts. Keep text tokens at a 4.5:1 contrast
- * ratio or better against `canvas` and `surface`.
+ * field, strong, on-strong, scrim); see tailwind.config.ts. In both themes, keep text
+ * tokens at a 4.5:1 contrast ratio or better against `canvas`, `surface` and `subtle`.
  */
 :root {
   --color-canvas: 246 246 247; /* page background: very light gray */
@@ -20,12 +21,36 @@
   --color-field: 134 139 146; /* form-field borders: 3:1 or better on surface and canvas */
   --color-strong: 31 35 40; /* primary buttons */
   --color-on-strong: 255 255 255; /* text on primary buttons */
+  --color-scrim: 31 35 40; /* dims the page behind the chat panel */
+  --shadow-color: 16 24 40; /* card and popover shadows */
 
-  /*
-   * The design is light-only. `only light` also opts out of Chromium/Samsung
-   * "auto dark" recoloring, which would otherwise invert the palette.
-   */
+  /* `only light` keeps Chromium's "auto dark" recoloring (e.g. Chrome on Android's
+     "Auto-darken web contents") off the light theme; this property on the root overrides the
+     `<meta name="color-scheme">` tag. The dark theme below switches it to `dark`. */
   color-scheme: only light;
+}
+
+/*
+ * Dark theme: `data-theme="dark"` on <html>, set before the first paint from the saved
+ * choice or the system setting (src/shared/config/theme.ts). Screen only, so printing
+ * always uses the light tokens.
+ */
+@media screen {
+  :root[data-theme="dark"] {
+    --color-canvas: 17 18 20; /* page background: near-black graphite */
+    --color-surface: 24 26 29; /* cards, header, chat panel */
+    --color-subtle: 36 39 43; /* chips, assistant bubbles, code blocks */
+    --color-ink: 232 234 237; /* primary text */
+    --color-muted: 160 166 174; /* secondary text (7.6:1 on canvas) */
+    --color-line: 48 51 56; /* decorative borders and dividers */
+    --color-field: 112 118 126; /* form-field borders: 3:1 or better on surface and canvas */
+    --color-strong: 232 234 237; /* primary buttons */
+    --color-on-strong: 24 26 29; /* text on primary buttons */
+    --color-scrim: 0 0 0;
+    --shadow-color: 0 0 0;
+
+    color-scheme: dark;
+  }
 }
 
 html {
@@ -61,14 +86,11 @@ body {
   }
 }
 
-/* Printing (mainly the Resume page): white paper; the header and footer hide via `print:hidden`. */
+/* Printing (mainly the Resume page): white paper (`print:bg-surface` on <body>, light tokens even in
+   the dark theme); the header and footer hide via `print:hidden`. */
 @media print {
   html {
     scroll-padding-top: 0;
     scroll-padding-bottom: 0;
-  }
-
-  body {
-    background-color: rgb(var(--color-surface));
   }
 }

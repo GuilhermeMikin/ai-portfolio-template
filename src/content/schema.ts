@@ -219,7 +219,7 @@ const YEAR_MONTH_PATTERN = /^\d{4}(?:-(0[1-9]|1[0-2]))?$/;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PLACEHOLDER_PATTERN = /\b(TODO|TBD|FIXME|lorem ipsum)\b|\byour name\b/i;
 const EXAMPLE_LEFTOVER_PATTERN =
-  /\bexample\.(?:com|org|net)\b|\bfictional example profile\b|github\.com\/GuilhermeMikin\/ai-portfolio-template\b/i;
+  /\bexample\.(?:com|org|net)\b|\bfictional example profile\b|\bperfil de exemplo fict[ií]cio\b|github\.com\/GuilhermeMikin\/ai-portfolio-template\b/i;
 
 function walkStrings(value: unknown, path: string, visit: (path: string, value: string) => void) {
   if (typeof value === "string") {
@@ -583,6 +583,33 @@ export function validateProfile(profile: Profile, options: ValidateOptions = {})
   }
 
   return issues;
+}
+
+/**
+ * Every locale must agree on `isExample` (missing counts as false). A fork that marks one
+ * language as real content but keeps the bundled example in another would send that
+ * language's visitors, who are redirected by browser language, to the example profile.
+ */
+export function validateExampleFlags(
+  profilesByLocale: Record<string, Pick<Profile, "isExample">>
+): ContentIssue[] {
+  const locales = Object.keys(profilesByLocale);
+  const realLocales = locales.filter((locale) => !profilesByLocale[locale].isExample);
+  if (realLocales.length === 0 || realLocales.length === locales.length) {
+    return [];
+  }
+
+  const real = realLocales.join(", ");
+  return locales
+    .filter((locale) => profilesByLocale[locale].isExample)
+    .map((locale) => ({
+      level: "error" as const,
+      path: `${locale}: isExample`,
+      message:
+        `src/content/${locale}/profile.ts still holds the example profile while ${real} ` +
+        `${realLocales.length === 1 ? "is" : "are"} marked as real content (isExample: false). ` +
+        "Translate your content into it, or remove the locale (docs/customization.md#languages)",
+    }));
 }
 
 /* -------------------------------------------------------------------------- */

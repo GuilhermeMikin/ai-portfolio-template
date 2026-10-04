@@ -1,6 +1,7 @@
 # Customization guide
 
-Everything about you lives in `src/content/en/profile.ts`. The type is `Profile` in
+Everything about you lives in `src/content/en/profile.ts`, with a Portuguese version in
+`src/content/pt-br/profile.ts` (see [Languages](#languages)). The type is `Profile` in
 `src/content/schema.ts`. After every change run:
 
 ```bash
@@ -34,7 +35,9 @@ marked `noindex`. Set it to `false` (or delete it) when the content is yours.
 ### `brand.logo` (optional)
 
 `{ src, width, height }`: an image in `public/` with its intrinsic size in pixels. It replaces the text name in
-the header; your name stays its accessible label. Without a logo the name is the brand.
+the header; your name stays its accessible label. Without a logo the name is the brand. The header is white in
+the light theme and graphite in the dark one, so pick a logo that reads on both (or remove the dark theme, see
+[Light and dark themes](#light-and-dark-themes)).
 
 Images must be files in `public/`: `next/image` does not load remote URLs unless you configure
 `images.remotePatterns` in `next.config.ts`, so `pnpm content:check` rejects them.
@@ -119,20 +122,62 @@ visitor's language and link only to your own pages or URLs from your content.
 
 ## Text, colors and fonts
 
-- **UI text:** `src/content/en/messages.json` (site) and `src/content/en/chat.json` (assistant). Keep the
-  `{placeholders}` (`{name}`, `{firstName}`, `{assistantName}`, …).
-- **Colors:** the tokens in `:root` in `src/app/globals.css` (`--color-canvas`, `--color-surface`,
-  `--color-subtle`, `--color-ink`, `--color-muted`, `--color-line`, `--color-strong`, `--color-on-strong`). Values are
-  RGB channels. Keep text at a 4.5:1 contrast ratio or better. The generated Open Graph image and icons use
-  `BRAND_COLORS` in `src/shared/utils/seo.ts`; update it to match.
+- **UI text:** `messages.json` (site) and `chat.json` (assistant) in each language folder
+  (`src/content/en/`, `src/content/pt-br/`). Keep the `{placeholders}` (`{name}`, `{firstName}`,
+  `{assistantName}`, …).
+- **Colors:** the tokens in `src/app/globals.css` (`--color-canvas`, `--color-surface`, `--color-subtle`,
+  `--color-ink`, `--color-muted`, `--color-line`, `--color-field`, `--color-strong`, `--color-on-strong`,
+  `--color-scrim`): the light theme in `:root`, the dark theme in `:root[data-theme="dark"]`. Values are RGB
+  channels. In both themes, keep text at a 4.5:1 contrast ratio or better against the backgrounds. The
+  generated Open Graph image and icons use the light colors in `BRAND_COLORS` (`src/shared/utils/seo.ts`), and
+  the browser UI color uses `THEME_COLORS` (`src/shared/config/theme.ts`); update them to match.
+  `pnpm test` checks that they do.
 - **Font:** Inter is loaded in `src/shared/utils/fonts.ts` with `next/font/google`. Swap it there.
-- **Monochrome by design:** the template is light-only and has no theme switcher.
 
-## Adding a language
+## Light and dark themes
 
-See "Adding a language" in [AGENTS.md](../AGENTS.md#adding-a-language). In short: add the code and label in
-`src/shared/config/site.ts`, copy and translate `src/content/en/` to `src/content/<code>/`, register it in
-`src/content/index.ts` and run `pnpm content:check`.
+The header has a sun/moon button that switches between the light and dark themes.
+
+- Until a visitor uses it, the site follows the operating system's setting, and changes with it.
+- The choice is saved in the browser (`localStorage`, key `site_theme`). A small inline script in the
+  document head applies it before the first paint, so a page never flashes the wrong theme.
+- Printing always uses the light theme. The Open Graph image, icons and web manifest are light too.
+
+**A light-only site:** remove `<ThemeToggle …/>` from `src/shared/components/Header/index.tsx` and the
+`@media screen { :root[data-theme="dark"] … }` block from `src/app/globals.css`. Keep `color-scheme: only light`
+in `:root`: it stops browsers' automatic dark mode from recoloring the page. Then set `colorScheme: "only light"`
+and a single `themeColor: THEME_COLORS.light` in `src/app/layout.tsx`. Finally, drop the dark-theme assertions in
+`tests/seo-brand-colors.test.ts` and the two theme-toggle label assertions in `tests/site-pages.test.ts`. The
+inline theme script can stay: without dark tokens it changes nothing.
+
+## Languages
+
+The template ships with English (`en`, the default) and Brazilian Portuguese (`pt-br`). Each language has its
+own folder in `src/content/` with the profile, the site text and the assistant's text; `pnpm content:check`
+verifies that the text files of every language have the same keys and `{placeholders}`.
+
+How visitors get their language:
+
+- Every URL carries a language (`/en/projects`, `/pt-br/projects`) and always opens in it, so shared links and
+  search results stay stable.
+- Addresses without one (`/`, `/about`, `/projects`, …) redirect to the visitor's saved choice or, without
+  one, to the browser's preferred language (the `Accept-Language` header), falling back to the default
+  language. The 404 page picks its language the same way.
+- The language switcher in the header saves the choice in a cookie (`site_locale`, kept for a year).
+- The assistant answers in the language of each question, whatever the page's language.
+
+Every language needs your real content: `pnpm content:check` (and so `pnpm build`) fails while one profile is
+marked as real (`isExample: false`) and another still holds the example, because visitors with that browser
+language would land on the example profile.
+
+**Keeping one language:** remove the other code from `SUPPORTED_LOCALES` and `LOCALE_LABELS` in
+`src/shared/config/site.ts`, delete its folder in `src/content/` and its entry in `contentByLocale`
+(`src/content/index.ts`). With a single language the switcher disappears. For a site in Portuguese only, follow
+"A site in another language only" in [AGENTS.md](../AGENTS.md#adding-a-language).
+
+**Adding a language:** see "Adding a language" in [AGENTS.md](../AGENTS.md#adding-a-language). In short: add the
+code and label in `src/shared/config/site.ts`, copy and translate `src/content/en/` to `src/content/<code>/`,
+register it in `src/content/index.ts` and run `pnpm content:check`.
 
 ## Assistant behavior
 

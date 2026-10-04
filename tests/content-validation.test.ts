@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import { contentByLocale, type Profile } from "@/content";
 import {
   CONTENT_LIMITS,
+  validateExampleFlags,
   validateMessages,
   validateProfile,
   type ContentIssue,
@@ -262,6 +263,25 @@ describe("validateProfile", () => {
 
     profile.isExample = false;
     expect(validateProfile(profile)).toEqual([]);
+  });
+});
+
+describe("validateExampleFlags", () => {
+  it("passes when every locale agrees (a missing flag counts as real content)", () => {
+    expect(validateExampleFlags({ en: { isExample: true }, "pt-br": { isExample: true } })).toEqual([]);
+    expect(validateExampleFlags({ en: { isExample: false }, "pt-br": {} })).toEqual([]);
+    expect(validateExampleFlags({ en: {} })).toEqual([]);
+  });
+
+  it("fails for each locale that still holds the example while another is real content", () => {
+    const issues = validateExampleFlags({ en: { isExample: false }, "pt-br": { isExample: true } });
+    expect(issues).toHaveLength(1);
+    expect(issues[0]).toMatchObject({ level: "error", path: "pt-br: isExample" });
+    expect(issues[0].message).toContain("src/content/pt-br/profile.ts still holds the example profile while en is");
+
+    const reversed = validateExampleFlags({ en: { isExample: true }, "pt-br": {}, es: { isExample: false } });
+    expect(reversed.map((issue) => issue.path)).toEqual(["en: isExample"]);
+    expect(reversed[0].message).toContain("while pt-br, es are marked as real content");
   });
 });
 

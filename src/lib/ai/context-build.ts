@@ -436,24 +436,47 @@ const STOPWORDS = new Set(
     "vous", "tu", "der", "die", "den", "dem", "ein", "eine", "einen", "und", "ist", "sind", "was",
     "welche", "welcher", "wie", "wo", "wer", "fur", "mit", "uber", "sein", "seine", "ihr", "ihre",
     "hat", "hast", "auch", "mir", "du", "sie", "er", "im", "zu", "auf", "von",
+    // More Portuguese, for the bundled pt-br content ("trabalho" mirrors "work" above)
+    "ao", "aos", "pelo", "pela", "foi", "ser", "sao", "isso", "esse", "essa", "este", "esta", "muito",
+    "fale", "conte", "mostre", "trabalho", "trabalha",
   ]
 );
 
 /**
- * Extra words that point at a section (English; labels from the message files cover
- * other languages). They are stemmed like everything else.
+ * Extra words that point at a section, in English and then Portuguese (accent-free), for
+ * the bundled locales; section labels from the message files cover any other language.
+ * They are stemmed like everything else, and the stemmer only drops a final "s", so
+ * Portuguese plurals that change the ending (-ções, -ns) are listed as well.
  */
 const SECTION_KEYWORDS: Partial<Record<ContextSectionId, string[]>> = {
-  focus: ["focus", "specialty", "specialize", "strength", "expertise"],
-  skills: ["skill", "technology", "tech", "tool", "stack", "framework", "language", "programming"],
-  experience: ["experience", "job", "role", "career", "worked", "employer", "company"],
-  projects: ["project", "built", "build", "made", "created", "portfolio", "app", "product"],
-  education: ["education", "degree", "study", "studied", "university", "college", "school"],
-  certifications: ["certification", "certificate", "certified", "course"],
-  languages: ["language", "speak", "speaks", "spoken", "fluent"],
-  interests: ["hobby", "interest", "fun", "free", "outside", "personal"],
-  contact: ["contact", "email", "reach", "hire", "available", "availability", "freelance", "touch"],
-  resume: ["resume", "cv", "pdf", "download"],
+  focus: ["focus", "specialty", "specialize", "strength", "expertise", "foco", "especialidade", "forte"],
+  skills: [
+    "skill", "technology", "tech", "tool", "stack", "framework", "language", "programming",
+    "habilidade", "tecnologia", "ferramenta", "linguagem", "linguagens", "programacao", "sabe",
+  ],
+  experience: [
+    "experience", "job", "role", "career", "worked", "employer", "company",
+    "experiencia", "emprego", "cargo", "carreira", "trabalhou", "empresa",
+  ],
+  projects: [
+    "project", "built", "build", "made", "created", "portfolio", "app", "product",
+    "projeto", "construiu", "criou", "fez", "desenvolveu", "aplicativo", "produto",
+  ],
+  education: [
+    "education", "degree", "study", "studied", "university", "college", "school",
+    "formacao", "formacoes", "graduacao", "graduacoes", "faculdade", "estudou", "universidade", "diploma",
+  ],
+  certifications: [
+    "certification", "certificate", "certified", "course",
+    "certificacao", "certificacoes", "certificado", "curso",
+  ],
+  languages: ["language", "speak", "speaks", "spoken", "fluent", "idioma", "lingua", "fala", "fluente"],
+  interests: ["hobby", "interest", "fun", "free", "outside", "personal", "interesse", "lazer", "livre", "pessoal"],
+  contact: [
+    "contact", "email", "reach", "hire", "available", "availability", "freelance", "touch",
+    "contato", "contratar", "disponivel", "disponibilidade", "falar",
+  ],
+  resume: ["resume", "cv", "pdf", "download", "curriculo", "baixar"],
 };
 
 /** A light, symmetric stemmer: questions and content go through the same rules. */

@@ -39,7 +39,7 @@ export const SITE_URL = resolveSiteUrl();
  * URL segment of every supported locale (`/en/about`): lowercase, e.g. `"pt-br"`.
  * The first one is the default locale.
  */
-export const SUPPORTED_LOCALES = ["en"] as const;
+export const SUPPORTED_LOCALES = ["en", "pt-br"] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = SUPPORTED_LOCALES[0];
@@ -47,6 +47,7 @@ export const DEFAULT_LOCALE: Locale = SUPPORTED_LOCALES[0];
 /** Name shown in the language switcher (only rendered when there is more than one locale). */
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: "English",
+  "pt-br": "Português",
 };
 
 export const LOCALE_PREFERENCE_COOKIE_NAME = "site_locale";
@@ -165,17 +166,39 @@ export function matchSupportedLocale(
   return null;
 }
 
+/**
+ * The visitor's language: the saved choice (cookie) first, then the browser's preferences,
+ * from the Accept-Language header on the server or `navigator.languages` in the browser.
+ */
 export function resolvePreferredLocale({
   acceptLanguage,
+  browserLanguages,
   savedLocale,
 }: {
   acceptLanguage?: string | null;
+  browserLanguages?: readonly string[];
   savedLocale?: string | null;
 }): Locale {
   return (
     matchSupportedLocale([
       savedLocale,
       ...getAcceptLanguageCandidates(acceptLanguage),
+      ...(browserLanguages ?? []),
     ]) ?? DEFAULT_LOCALE
   );
+}
+
+/** The saved language from a `document.cookie` string, if any. */
+export function readLocalePreferenceCookie(cookieString: string): string | null {
+  for (const part of cookieString.split(";")) {
+    const [name, ...value] = part.trim().split("=");
+    if (name === LOCALE_PREFERENCE_COOKIE_NAME) {
+      try {
+        return decodeURIComponent(value.join("="));
+      } catch {
+        return null;
+      }
+    }
+  }
+  return null;
 }

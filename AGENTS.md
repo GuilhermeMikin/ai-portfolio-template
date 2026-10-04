@@ -33,7 +33,9 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
    projects to show (with links), contact details (an email and/or profile links), current availability, and
    the languages the site should support. If something is missing or ambiguous, ask. Never fill gaps with
    plausible guesses: the assistant will repeat whatever the content says to every visitor.
-2. **Write `src/content/en/profile.ts`.** Follow the types in `src/content/schema.ts` and the field guide in
+2. **Write `src/content/en/profile.ts`,** then the same facts in `src/content/pt-br/profile.ts` (a faithful
+   translation, never new claims), or remove Portuguese if the owner doesn't want it ("Languages" in
+   `docs/customization.md`). `pnpm content:check` fails while the locales disagree on `isExample`. Follow the types in `src/content/schema.ts` and the field guide in
    `docs/customization.md`.
    - Dates are `"YYYY"` or `"YYYY-MM"`; omit `end` for current roles.
    - `id`s are lowercase slugs and must be unique.
@@ -49,9 +51,10 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
    with `/` (`person.photo` with an `alt` text; `brand.logo` with the image's intrinsic width and height).
    Remote image URLs are rejected. A résumé PDF goes in
    `public/` and is referenced from `resume.pdf.href`. Never reuse images you don't have rights to.
-4. **Look and wording (optional).** Colors are CSS variables in `src/app/globals.css` (mirror any change in
-   `BRAND_COLORS` in `src/shared/utils/seo.ts`, used by generated images). UI text is in
-   `src/content/en/messages.json` (site) and `src/content/en/chat.json` (assistant).
+4. **Look and wording (optional).** Colors are CSS variables in `src/app/globals.css`: the light theme in
+   `:root`, the dark theme in `:root[data-theme="dark"]` (mirror changes in `BRAND_COLORS` in
+   `src/shared/utils/seo.ts`, used by generated images, and `THEME_COLORS` in `src/shared/config/theme.ts`).
+   UI text is in `messages.json` (site) and `chat.json` (assistant) in each language folder.
 5. **Validate.** Run `pnpm content:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm build`.
    Fix every error; read the warnings.
 6. **Try the assistant.** `CHAT_MODE=demo pnpm dev` needs no key. For real answers the owner adds
@@ -73,8 +76,9 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
 - **Assistant behavior** is defined in `src/lib/ai/prompts.ts`. Owner preferences (tone, length, what to bring
   up) belong in `assistant.instructions` in the profile; they cannot override the built-in rules.
 - **Design:** use the color tokens (`bg-canvas`, `bg-surface`, `bg-subtle`, `text-ink`, `text-muted`,
-  `border-line`, `bg-strong`, `text-on-strong`) rather than raw colors, keep the monochrome look unless asked
-  otherwise, keep visible focus styles, and keep opacity modifiers on the scale (`pnpm tailwind:check`).
+  `border-line`, `bg-strong`, `text-on-strong`) rather than raw colors so both themes work, check changes in
+  the light and the dark theme, keep the monochrome look unless asked otherwise, keep visible focus styles,
+  and keep opacity modifiers on the scale (`pnpm tailwind:check`).
 - **Accessibility:** one `h1` per page, labelled controls, keyboard support, no autofocus, nothing that opens
   on page load, no horizontal scrolling at 320 px.
 - **Tests** must not depend on the example profile; use fixtures, as the existing suites do, so they keep
@@ -84,14 +88,15 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
 ## Adding a language
 
 1. Add the code to `SUPPORTED_LOCALES` and a label to `LOCALE_LABELS` in `src/shared/config/site.ts`
-   (for example `"pt-br"` and `"Português"`). Codes are lowercase. The first entry is the default locale.
+   (for example `"es"` and `"Español"`). Codes are lowercase. The first entry is the default locale.
 2. Copy `src/content/en/` to `src/content/<code>/` and translate `profile.ts`, `messages.json` and `chat.json`.
    Keep keys and `{placeholders}` identical.
 3. Register the new folder in `contentByLocale` in `src/content/index.ts`; TypeScript reports a missing entry.
 4. Run `pnpm content:check`: it checks key and placeholder parity against the default locale.
 
 The language switcher, `hreflang` tags and sitemap entries appear automatically. URL slugs stay the same in
-every language (`/pt-br/projects`).
+every language (`/es/projects`). Visitors are sent to it automatically when it is their saved or browser
+language.
 
 **A site in another language only:** put that locale first in `SUPPORTED_LOCALES` (or replace `"en"`), rename
 `src/content/en/` accordingly and update the imports and the `typeof en…` types in `src/content/index.ts`.
@@ -106,7 +111,8 @@ every language (`/pt-br/projects`).
 | `src/lib/ai/` | Chat config, context builder, prompts, intents, guardrails, provider client, demo replies |
 | `src/lib/rate-limit/` | Upstash and in-memory stores |
 | `src/shared/components/` | UI components (chat widget, home assistant card, header, footer, …) |
-| `src/shared/config/` | Locales, canonical URL, on-site link allow-list |
+| `src/shared/config/` | Locales and language negotiation, themes, canonical URL, on-site link allow-list |
+| `src/proxy.ts` | Redirects `/about`, `/projects`, … to the visitor's language |
 | `scripts/` | `check-content.ts`, `check-tailwind-classes.ts`, `eval/` |
 | `tests/` | Vitest suites |
 | `docs/` | Customization, deployment and architecture guides |

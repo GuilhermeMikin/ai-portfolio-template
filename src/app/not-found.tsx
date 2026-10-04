@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getMessages } from "@/content";
 import { NotFound } from "@/shared/components/NotFound";
 import { DEFAULT_LOCALE, toLanguageTag } from "@/shared/config/site";
+import { THEME_INIT_SCRIPT } from "@/shared/config/theme";
 import { inter } from "@/shared/utils/fonts";
 
 export const metadata: Metadata = {
@@ -21,7 +22,10 @@ export const metadata: Metadata = {
  */
 export default function RootNotFound() {
   return (
-    <html lang={toLanguageTag(DEFAULT_LOCALE)} className={inter.variable}>
+    <html lang={toLanguageTag(DEFAULT_LOCALE)} className={inter.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body className="bg-canvas font-sans text-ink antialiased">
         <main className="flex min-h-dvh items-center justify-center">
           <NotFound />
