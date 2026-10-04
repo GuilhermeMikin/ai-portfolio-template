@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUp, MessageCircleOff } from "lucide-react";
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 
 import { formatMessage } from "@/content/format";
 import { useChatWidget } from "@/shared/components/ChatWidget";
@@ -16,40 +16,21 @@ const MAX_SUGGESTIONS = 3;
 const CARD_CLASS_NAME = "rounded-2xl border border-line bg-surface p-5 shadow-card sm:p-6";
 
 /**
- * The assistant's entry point on the home page: a compact card with a question field and
- * suggested questions. Sending opens the chat panel. While the card is on screen the
- * floating launcher stays hidden, so only one entry point shows at a time.
+ * The assistant's featured entry point on the home page: a compact card with a question
+ * field and suggested questions. Sending opens the chat panel (the floating launcher opens
+ * the same panel from any page).
  */
 export function HomeAssistant({ suggestedQuestions }: HomeAssistantProps) {
-  const { mode, copy, messageValues, maxMessageLength, askQuestion, setHomeCardVisible } = useChatWidget();
+  const { mode, copy, messageValues, maxMessageLength, askQuestion } = useChatWidget();
   const [draft, setDraft] = useState("");
-  const cardRef = useRef<HTMLElement>(null);
   const sendRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
   const inputId = useId();
   const suggestionsLabelId = useId();
 
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card || typeof IntersectionObserver === "undefined") {
-      return;
-    }
-
-    // Fast scrolling can queue several entries; the last one is the current state.
-    const observer = new IntersectionObserver((entries) =>
-      setHomeCardVisible(entries[entries.length - 1].isIntersecting)
-    );
-    observer.observe(card);
-
-    return () => {
-      observer.disconnect();
-      setHomeCardVisible(null);
-    };
-  }, [setHomeCardVisible]);
-
   if (mode === "off") {
     return (
-      <section ref={cardRef} aria-labelledby={titleId} className={CARD_CLASS_NAME}>
+      <section aria-labelledby={titleId} className={CARD_CLASS_NAME}>
         <div className="flex items-start gap-3">
           <span aria-hidden="true" className="grid size-9 shrink-0 place-items-center rounded-full bg-subtle text-muted">
             <MessageCircleOff className="size-4" />
@@ -83,7 +64,7 @@ export function HomeAssistant({ suggestedQuestions }: HomeAssistantProps) {
   };
 
   return (
-    <section ref={cardRef} aria-labelledby={titleId} className={CARD_CLASS_NAME}>
+    <section aria-labelledby={titleId} className={CARD_CLASS_NAME}>
       <div className="flex items-start justify-between gap-3">
         <h2 id={titleId} className="text-lg font-semibold tracking-tight text-ink">
           {formatMessage(copy.home.title, messageValues)}

@@ -64,8 +64,8 @@ describe("chat UI on first render", () => {
     }
   });
 
-  it("hides the launcher on the home page, where the assistant card is the entry point", () => {
-    expect(launcherTag(renderPage("live"))).toMatch(/class="hidden /);
+  it("shows the launcher on the home page too, next to the assistant card", () => {
+    expect(launcherTag(renderPage("live"))).toMatch(/class="inline-flex /);
   });
 
   it("shows the launcher on other pages", () => {

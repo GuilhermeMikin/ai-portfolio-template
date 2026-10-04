@@ -102,6 +102,7 @@ Per-visitor limits identify visitors by IP: the header named in `RATE_LIMIT_IP_H
 - `src/app/page.tsx` redirects `/` to the visitor's saved or preferred language; `next.config.ts` redirects
   locale-less page paths (`/about`) to the default locale.
 - Unknown URLs get the prerendered `src/app/not-found.tsx`, which works without JavaScript.
+- Production responses carry a static Content-Security-Policy (`next.config.ts`) that keeps pages prerendered.
 - Open Graph images, icons, the manifest, `sitemap.xml` and `robots.txt` are generated from the content.
 
 ## Tests

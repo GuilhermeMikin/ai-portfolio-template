@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getAllowedExternalHrefs, getContent, getFirstName, getSiteAssetPaths } from "@/content";
 import { getChatClientConfig } from "@/lib/ai/config";
 import { ChatWidgetRoot } from "@/shared/components/ChatWidget";
+import { FloatingLinks, type FloatingLink } from "@/shared/components/FloatingLinks";
 import { Footer } from "@/shared/components/Footer";
 import { Header, type HeaderNavItem } from "@/shared/components/Header";
 import { StructuredData } from "@/shared/components/StructuredData";
@@ -38,6 +39,12 @@ export default async function LocaleLayout({
   const logo = profile.brand?.logo;
   const navItems: HeaderNavItem[] = NAV_PAGES.map((page) => ({ page, label: messages.nav[page] }));
   const analyticsEnabled = process.env.ENABLE_VERCEL_ANALYTICS === "true";
+  const floatingLinks: FloatingLink[] = [
+    ...profile.contact.social.map((link) => ({ href: link.href, label: link.label, platform: link.platform })),
+    ...(profile.contact.email
+      ? [{ href: `mailto:${profile.contact.email}`, label: messages.contact.emailLabel, platform: "email" as const }]
+      : []),
+  ];
 
   return (
     <html lang={toLanguageTag(locale)} className={inter.variable}>
@@ -72,11 +79,21 @@ export default async function LocaleLayout({
                 language: messages.nav.language,
               }}
             />
-            <main id="main-content" tabIndex={-1} className="flex-1">
+            {/* Right padding from md keeps content clear of the floating links until the
+                centered column leaves room for them (xl). */}
+            <main id="main-content" tabIndex={-1} className="flex-1 md:pr-14 xl:pr-0">
               {children}
             </main>
             <Footer locale={locale} />
           </div>
+          <FloatingLinks
+            links={floatingLinks}
+            labels={{
+              list: messages.footer.socialLabel,
+              backToTop: messages.nav.backToTop,
+              opensInNewTab: messages.common.opensInNewTab,
+            }}
+          />
         </ChatWidgetRoot>
         {analyticsEnabled ? <Analytics /> : null}
       </body>

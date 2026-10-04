@@ -4,7 +4,8 @@ import type { Profile } from "../schema";
  * EXAMPLE PROFILE — Jordan Rivera is a fictional person.
  *
  * Every employer, project, school, certification and link below is invented to
- * demonstrate the template. Contact details use the reserved `example.com` domain.
+ * demonstrate the template. Contact details use the reserved `example.com` domain, and
+ * the GitHub and LinkedIn links point to those sites' home pages, not to anyone's profile.
  * Replace this file with your own information (docs/customization.md walks through
  * each field) and set `isExample: false`.
  *
@@ -18,16 +19,15 @@ export const profile: Profile = {
     name: "Jordan Rivera",
     shortName: "Jordan",
     headline: "Product engineer · TypeScript, Python & applied AI",
-    summary:
-      "Building web products end to end, from data models and APIs to the interface, and helping teams ship AI features that are measurable, safe and genuinely useful.",
-    location: "Lisbon, Portugal · Remote",
+    summary: "Building web products end to end and helping teams ship AI features people can trust.",
+    location: "Uberlândia, Minas Gerais, Brazil",
   },
 
   about: {
     bio: [
       "I'm a product engineer with about eight years of experience building web applications. I like owning a feature from the first conversation with users to the dashboard that shows whether it worked.",
       "Lately I've focused on applied AI: assistants and search features that are grounded in real data, evaluated before they ship and honest about what they don't know.",
-      "I work remotely from Lisbon and do my best work in small, senior teams where engineers talk to customers.",
+      "I work remotely from Uberlândia, Brazil, and do my best work in small, senior teams where engineers talk to customers.",
     ],
     highlights: [
       "End-to-end product features in TypeScript and Python",
@@ -70,7 +70,7 @@ export const profile: Profile = {
       id: "example-labs",
       role: "Software Engineer",
       organization: "Example Labs",
-      location: "Lisbon, Portugal",
+      location: "Remote",
       period: { start: "2020-06", end: "2023-01" },
       summary: "A product studio building web apps for clients in health, retail and education.",
       highlights: [
@@ -84,7 +84,7 @@ export const profile: Profile = {
       id: "independent",
       role: "Freelance Web Developer",
       organization: "Independent",
-      location: "Porto, Portugal",
+      location: "Uberlândia, Brazil",
       period: { start: "2018-09", end: "2020-05" },
       highlights: [
         "Designed and built websites and booking tools for local businesses, from first sketch to hosting and maintenance.",
@@ -191,8 +191,8 @@ export const profile: Profile = {
       "Open to senior product engineering roles and a limited number of freelance projects from January 2027.",
     responseTime: "Usually replies within two business days.",
     social: [
-      { platform: "github", label: "GitHub", href: "https://example.com/github" },
-      { platform: "linkedin", label: "LinkedIn", href: "https://example.com/linkedin" },
+      { platform: "github", label: "GitHub", href: "https://github.com" },
+      { platform: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com" },
       { platform: "website", label: "Blog", href: "https://example.com/blog" },
     ],
   },
@@ -232,7 +232,7 @@ export const profile: Profile = {
       },
       {
         question: "Does Jordan work remotely?",
-        answer: "Yes. Jordan is based in Lisbon, Portugal, and works remotely.",
+        answer: "Yes. Jordan is based in Uberlândia, Minas Gerais, Brazil, and works remotely.",
       },
       {
         question: "What are Jordan's rates?",

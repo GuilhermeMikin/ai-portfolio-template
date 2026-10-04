@@ -31,7 +31,6 @@ import {
 import { ChatMarkdown } from "@/shared/components/ChatMarkdown";
 import { resolveChatHref } from "@/shared/components/ChatMarkdown/markdown";
 import type { Locale } from "@/shared/config/site";
-import { getSitePagePath } from "@/shared/config/site-links";
 
 import {
   NETWORK_ERROR_CODE,
@@ -117,8 +116,6 @@ export type ChatWidgetContextValue = {
    * is left in the composer instead. Returns false when it was neither sent nor kept.
    */
   askQuestion: (question: string, options?: OpenChatOptions) => boolean;
-  /** The home assistant card reports whether it is on screen (`null` once unmounted). */
-  setHomeCardVisible: (visible: boolean | null) => void;
 };
 
 type PanelSize = { width: number; height: number };
@@ -378,7 +375,6 @@ export function ChatWidgetRoot({
   const [draft, setDraft] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [serverCapReached, setServerCapReached] = useState(false);
-  const [homeCardVisible, setHomeCardVisible] = useState<boolean | null>(null);
   const [panelSize, setPanelSize] = useState<PanelSize | null>(null);
 
   const titleId = useId();
@@ -404,9 +400,7 @@ export function ChatWidgetRoot({
   const historyEnabled = historyMode === "client";
   const isTranscriptCapReached =
     serverCapReached || (historyEnabled && countCompletedMessages(messages) >= maxTranscriptMessages);
-  // On the home page the assistant card stands in for the launcher. Until the card reports
-  // its visibility, assume it is on screen so the launcher does not flash on load.
-  const isLauncherHidden = isOpen || (homeCardVisible ?? pathname === getSitePagePath(locale, ""));
+  const isLauncherHidden = isOpen;
   const messageValues = useMemo(
     () => ({ name: ownerName, firstName: ownerFirstName, assistantName }),
     [assistantName, ownerFirstName, ownerName]
@@ -819,7 +813,6 @@ export function ChatWidgetRoot({
       openChat,
       closeChat,
       askQuestion,
-      setHomeCardVisible,
     }),
     [
       askQuestion,
@@ -859,7 +852,8 @@ export function ChatWidgetRoot({
           aria-haspopup="dialog"
           aria-label={copy.launcherLabel}
           onClick={(event) => openChat({ returnFocusTo: event.currentTarget })}
-          className={`${isLauncherHidden ? "hidden" : "inline-flex"} fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-30 h-12 items-center gap-2 rounded-full bg-strong pl-4 pr-5 text-sm font-medium text-on-strong shadow-raised transition-colors hover:bg-strong/90 md:bottom-6 md:right-6 print:hidden`}
+          // Bottom-left on phones (the floating links stack sits bottom-right), bottom-right from md.
+          className={`${isLauncherHidden ? "hidden" : "inline-flex"} fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-30 h-12 items-center gap-2 rounded-full bg-strong pl-4 pr-5 text-sm font-medium text-on-strong shadow-raised transition-colors hover:bg-strong/90 md:bottom-6 md:left-auto md:right-6 print:hidden`}
         >
           <MessageCircle aria-hidden="true" className="size-5" />
           {copy.launcher}
