@@ -4,8 +4,9 @@ import type { Profile } from "../schema";
  * EXAMPLE PROFILE — Jordan Rivera is a fictional person.
  *
  * Every employer, project, school, certification and link below is invented to
- * demonstrate the template. Contact details use the reserved `example.com` domain, and
- * the GitHub and LinkedIn links point to those sites' home pages, not to anyone's profile.
+ * demonstrate the template. The email uses the reserved `example.com` domain, the GitHub
+ * and LinkedIn links point to those sites' home pages (not to anyone's profile), and the
+ * website link points to the template author's own site.
  * Replace this file with your own information (docs/customization.md walks through
  * each field) and set `isExample: false`.
  *
@@ -144,10 +145,6 @@ export const profile: Profile = {
         "Runs in CI pipelines and as a pre-commit hook.",
       ],
       stack: ["Python"],
-      links: [
-        { label: "Repository", href: "https://example.com/projects/csv-validator" },
-        { label: "Documentation", href: "https://example.com/projects/csv-validator/docs" },
-      ],
     },
     {
       id: "clinic-booking",
@@ -159,7 +156,6 @@ export const profile: Profile = {
       status: "Delivered",
       category: "Client work",
       stack: ["Vue.js", "PHP", "MySQL"],
-      links: [{ label: "Case study", href: "https://example.com/projects/clinic-booking" }],
     },
   ],
 
@@ -193,7 +189,7 @@ export const profile: Profile = {
     social: [
       { platform: "github", label: "GitHub", href: "https://github.com" },
       { platform: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com" },
-      { platform: "website", label: "Blog", href: "https://example.com/blog" },
+      { platform: "website", label: "mikin.ai", href: "https://mikin.ai" },
     ],
   },
 
