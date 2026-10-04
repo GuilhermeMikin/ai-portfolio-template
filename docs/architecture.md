@@ -99,9 +99,15 @@ Per-visitor limits identify visitors by IP: the header named in `RATE_LIMIT_IP_H
 
 - `src/app/[locale]/` pages are statically generated for every supported locale (`generateStaticParams`,
   `dynamicParams = false`). The chat mode is passed to the client at build time.
-- `src/app/page.tsx` redirects `/` to the visitor's saved or preferred language; `next.config.ts` redirects
-  locale-less page paths (`/about`) to the default locale.
-- Unknown URLs get the prerendered `src/app/not-found.tsx`, which works without JavaScript.
+- `src/app/page.tsx` redirects `/` to the visitor's saved language (the `site_locale` cookie, written by the
+  language switcher) or the browser's preferred one (`Accept-Language`); `src/proxy.ts` does the same for
+  locale-less page paths (`/about`). URLs that carry a locale are never redirected.
+- Unknown URLs get the prerendered `src/app/not-found.tsx`, which works without JavaScript. In the browser it
+  switches to the URL's locale, or to the saved or browser language for URLs without one.
+- Themes: `globals.css` holds the light tokens in `:root` and the dark ones in `:root[data-theme="dark"]`. An
+  inline script in the document head (`THEME_INIT_SCRIPT`, `src/shared/config/theme.ts`) sets `data-theme` from
+  the saved choice (`localStorage`) or the system setting before the first paint, so prerendered pages need no
+  server-side theme. The header toggle switches the attribute, the theme-color metas and the saved choice.
 - Production responses carry a static Content-Security-Policy (`next.config.ts`) that keeps pages prerendered.
 - Open Graph images, icons, the manifest, `sitemap.xml` and `robots.txt` are generated from the content.
 
@@ -110,6 +116,6 @@ Per-visitor limits identify visitors by IP: the header named in `RATE_LIMIT_IP_H
 `pnpm test` runs Vitest suites in `tests/`. They cover content validation and formatting, the chat API
 end to end with a mocked provider (status codes, streaming, provider errors and timeouts, limits, demo mode,
 action requests), intents, history, the context builder, prompts, the rate-limit stores, the contact API, the
-Markdown parser and link guard, the chat client helpers, first renders of the chat UI in each mode, and SEO
-output. Suites use fixtures where they need specific data, so they keep passing after you replace the example
+Markdown parser and link guard, the chat client helpers, first renders of the chat UI in each mode, language
+negotiation and redirects, the theme script and toggle, and SEO output. Suites use fixtures where they need specific data, so they keep passing after you replace the example
 profile. Model answer quality is evaluated separately with `pnpm eval`.
