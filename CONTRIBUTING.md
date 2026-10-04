@@ -14,7 +14,7 @@ improvements are all welcome.
 
 ## Setup
 
-You need Node.js 20.9 or newer and pnpm (run `corepack enable` once if `pnpm` is missing).
+You need Node.js 22 or newer and pnpm (run `corepack enable` once if `pnpm` is missing).
 
 ```bash
 pnpm install

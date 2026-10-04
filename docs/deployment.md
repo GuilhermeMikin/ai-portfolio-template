@@ -1,7 +1,7 @@
 # Deployment guide
 
 The site is a standard Next.js 16 app. Pages are prerendered at build time; only `/api/chat` and
-`/api/contact` run on the server. Any host that runs Node.js 20.9+ works.
+`/api/contact` run on the server. Any host that runs Node.js 22 or newer works.
 
 ## Before you deploy
 

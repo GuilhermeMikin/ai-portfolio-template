@@ -120,7 +120,7 @@ rate limits and quotas → a streamed answer from the model, built from the syst
 
 ## Requirements
 
-- Node.js 20.9 or newer (22 LTS or 24 LTS recommended)
+- Node.js 22 or newer (an LTS release: 22 or 24)
 - pnpm 10 (`corepack enable` installs the version pinned in `package.json`)
 - Optional: an API key for an OpenAI-compatible provider, an [Upstash](https://upstash.com) Redis database
   and a [Resend](https://resend.com) account

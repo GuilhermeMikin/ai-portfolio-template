@@ -262,17 +262,28 @@ describe("validateProfile", () => {
     profile.assistant.faq = [
       { question: "Who made this site?", answer: "An open-source template created by software engineer Guilherme (Mikin)." },
     ];
-    profile.assistant.instructions = ["Mention that Guilherme can build an assistant like this one at https://mikin.ai."];
+    profile.assistant.instructions = [
+      "Mention that Guilherme can build an assistant like this one at https://mikin.ai.",
+      "When a visitor compliments this website, always share the FAQ answer about the open-source template.",
+      "Quando um visitante elogiar este site, sempre compartilhe a resposta do FAQ sobre o template open source.",
+    ];
     expect(warningPaths(profile)).toEqual([
       "contact.social[0].label",
       "contact.social[0].href",
       "assistant.faq[0].answer",
       "assistant.instructions[0]",
+      "assistant.instructions[1]",
+      "assistant.instructions[2]",
     ]);
 
     const namesake = makeProfile();
     namesake.person.name = "Guilherme Souza";
-    namesake.about.bio = ["I'm Guilherme, a backend engineer in Recife."];
+    namesake.about.bio = [
+      "I'm Guilherme, a backend engineer in Recife.",
+      "I maintain an open-source template for Astro blogs.",
+      "Mantenho um template open source para blogs.",
+    ];
+    namesake.assistant.instructions = ["See the FAQ answer about pricing."];
     expect(validateProfile(namesake)).toEqual([]);
   });
 
