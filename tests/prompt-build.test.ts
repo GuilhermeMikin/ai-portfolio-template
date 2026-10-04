@@ -105,11 +105,11 @@ describe("buildSystemPrompt", () => {
     expect(prompt).toMatch(/<faq>\n[\s\S]+\n<\/faq>/);
     expect(prompt).toContain(FIXTURE_PROFILE.projects[0].title);
     expect(prompt).toContain(FIXTURE_PROFILE.assistant.faq?.[0].question);
-    expect(prompt).toContain("OWNER STYLE PREFERENCES");
+    expect(prompt).toContain("OWNER PREFERENCES");
     expect(prompt).toContain(FIXTURE_PROFILE.assistant.instructions?.[0]);
-    // Style notes come before the content, after the rules.
-    expect(prompt.indexOf("OWNER STYLE PREFERENCES")).toBeGreaterThan(prompt.indexOf("RULES"));
-    expect(prompt.indexOf("OWNER STYLE PREFERENCES")).toBeLessThan(prompt.indexOf("\n<portfolio_content>\n"));
+    // Owner preferences come before the content, after the rules.
+    expect(prompt.indexOf("OWNER PREFERENCES")).toBeGreaterThan(prompt.indexOf("RULES"));
+    expect(prompt.indexOf("OWNER PREFERENCES")).toBeLessThan(prompt.indexOf("\n<portfolio_content>\n"));
   });
 
   it("leaves out the FAQ block, the style notes and the email hint when the profile has none", () => {
@@ -118,7 +118,7 @@ describe("buildSystemPrompt", () => {
 
     expect(prompt).toContain(MINIMAL_PROFILE.person.name);
     expect(prompt).not.toMatch(/^<faq>$/m);
-    expect(prompt).not.toContain("OWNER STYLE PREFERENCES");
+    expect(prompt).not.toContain("OWNER PREFERENCES");
     expect(prompt).not.toContain("the email address in the content");
     expect(prompt).toContain(`the Contact page (${getSitePagePath(locale, "contact")})`);
   });

@@ -6,7 +6,8 @@ import type { Profile } from "../schema";
  * Every employer, project, school, certification and link below is invented to
  * demonstrate the template. The email uses the reserved `example.com` domain, the GitHub
  * and LinkedIn links point to those sites' home pages (not to anyone's profile), and the
- * website link points to the template author's own site.
+ * website link points to the template author's own site. The FAQ entry about this website
+ * and the matching assistant instructions promote the template on its public demo.
  * Replace this file with your own information (docs/customization.md walks through
  * each field) and set `isExample: false`.
  *
@@ -217,6 +218,11 @@ export const profile: Profile = {
           "No. Jordan Rivera is a fictional example profile used to demonstrate this portfolio template. The employers, projects and contact details are placeholders.",
       },
       {
+        question: "Who made this website, and can I get one like it?",
+        answer:
+          "This website is an open-source template created by software engineer Guilherme (Mikin); Jordan is the fictional example profile that comes with it. You can download the code on GitHub: https://github.com/GuilhermeMikin/ai-portfolio-template. If you'd like a customized version without having to code, you can hire Guilherme directly at https://mikin.ai to build yours.",
+      },
+      {
         question: "How does Jordan approach AI features?",
         answer:
           "Jordan starts from a concrete user problem, grounds the model in data the team controls, builds an evaluation set before launch and always plans a path to a person when the model isn't confident.",
@@ -238,6 +244,8 @@ export const profile: Profile = {
     ],
     instructions: [
       "Keep answers short: two brief paragraphs or a short list, unless the visitor asks for more detail.",
+      "When a visitor compliments this website, asks how it was built or who made it, or asks about getting a similar website or assistant, always share the FAQ answer about the open-source template, with both of its links.",
+      "After a long answer about Jordan's skills, you may end with one short, low-key line saying that Guilherme can build an assistant like this one for the visitor's own site at https://mikin.ai. Do this at most once per conversation.",
     ],
   },
 };
