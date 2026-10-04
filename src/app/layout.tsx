@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import { SITE_URL } from "@/shared/config/site";
-import { BRAND_COLORS } from "@/shared/utils/seo";
+import { THEME_COLORS } from "@/shared/config/theme";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,10 +9,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Light-only design; also opts out of "auto dark" recoloring on Android browsers.
-  colorScheme: "only light",
-  // Browser UI color, matching the sticky header (`--color-surface`).
-  themeColor: BRAND_COLORS.surface,
+  // Both themes are designed; this also keeps Android's "auto dark" recoloring off.
+  colorScheme: "light dark",
+  // Browser UI color, matching the sticky header (`--color-surface`). The theme toggle
+  // updates these tags when the visitor's choice differs from the system setting.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
+  ],
 };
 
 /**

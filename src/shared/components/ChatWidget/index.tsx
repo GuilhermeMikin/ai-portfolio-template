@@ -863,7 +863,7 @@ export function ChatWidgetRoot({
       {enabled && isOpen ? (
         <div className="fixed inset-0 z-50 print:hidden">
           {/* Mouse-only backdrop (desktop); keyboard users have Escape and the close button. */}
-          <div aria-hidden="true" onClick={() => closeChat()} className="absolute inset-0 hidden bg-ink/20 md:block" />
+          <div aria-hidden="true" onClick={() => closeChat()} className="absolute inset-0 hidden bg-scrim/20 md:block" />
 
           <div
             ref={dialogRef}

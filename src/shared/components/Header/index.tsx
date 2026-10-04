@@ -12,6 +12,7 @@ import { getSitePageFromPathname, type PageSlug } from "@/shared/utils/routes";
 import { CONTAINER, cx } from "@/shared/utils/styles";
 
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 
 export type HeaderNavItem = { page: PageSlug; label: string };
 
@@ -21,7 +22,14 @@ export type HeaderProps = {
   ownerName: string;
   logo?: { src: string; width: number; height: number };
   navItems: HeaderNavItem[];
-  labels: { nav: string; openMenu: string; closeMenu: string; language: string };
+  labels: {
+    nav: string;
+    openMenu: string;
+    closeMenu: string;
+    language: string;
+    themeToDark: string;
+    themeToLight: string;
+  };
 };
 
 const NAV_LINK = "rounded-xl px-3 py-2 text-sm font-medium transition-colors";
@@ -107,6 +115,8 @@ export function Header({ locale, ownerName, logo, navItems, labels }: HeaderProp
         </nav>
 
         {SUPPORTED_LOCALES.length > 1 ? <LanguageSwitcher locale={locale} label={labels.language} /> : null}
+
+        <ThemeToggle labels={{ toDark: labels.themeToDark, toLight: labels.themeToLight }} />
 
         <button
           ref={menuButtonRef}

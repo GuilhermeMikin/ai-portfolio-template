@@ -19,6 +19,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "language": "Language",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme",
     "skipToContent": "Skip to content",
     "backToTop": "Back to top"
   },
