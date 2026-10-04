@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Theme tokens — edit these to re-color the whole site.
+ *
+ * Values are RGB channels so Tailwind opacity modifiers keep working (`bg-ink/5`).
+ * Components only use the token names (canvas, surface, subtle, ink, muted, line,
+ * strong, on-strong); see tailwind.config.ts. Keep text tokens at a 4.5:1 contrast
+ * ratio or better against `canvas` and `surface`.
+ */
+:root {
+  --color-canvas: 246 246 247; /* page background: very light gray */
+  --color-surface: 255 255 255; /* cards, header, chat panel */
+  --color-subtle: 240 240 242; /* chips, assistant bubbles, code blocks */
+  --color-ink: 31 35 40; /* primary text: graphite */
+  --color-muted: 89 95 104; /* secondary text (5.9:1 on canvas) */
+  --color-line: 226 227 230; /* decorative borders and dividers */
+  --color-field: 134 139 146; /* form-field borders: 3:1 or better on surface and canvas */
+  --color-strong: 31 35 40; /* primary buttons */
+  --color-on-strong: 255 255 255; /* text on primary buttons */
+
+  /*
+   * The design is light-only. `only light` also opts out of Chromium/Samsung
+   * "auto dark" recoloring, which would otherwise invert the palette.
+   */
+  color-scheme: only light;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Anchor targets (skip link, `/projects#project-…`) stop below the sticky header, and
+     focused elements stay clear of the floating chat launcher at the bottom. */
+  scroll-padding-top: 5rem;
+  scroll-padding-bottom: 6rem;
+}
+
+body {
+  background-color: rgb(var(--color-canvas));
+  color: rgb(var(--color-ink));
+  text-rendering: optimizeLegibility;
+  /* Long names, URLs and emails wrap instead of widening narrow screens. */
+  overflow-wrap: break-word;
+}
+
+/* A visible, consistent focus ring for keyboard users. */
+:focus-visible {
+  outline: 2px solid rgb(var(--color-ink));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Printing (mainly the Resume page): white paper; the header and footer hide via `print:hidden`. */
+@media print {
+  html {
+    scroll-padding-top: 0;
+    scroll-padding-bottom: 0;
+  }
+
+  body {
+    background-color: rgb(var(--color-surface));
+  }
+}

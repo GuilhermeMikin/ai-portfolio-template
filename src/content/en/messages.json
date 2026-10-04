@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "pageTitle": "{page} · {name}",
+    "exampleNotice": "Example profile: {name} is a fictional person used to demonstrate this template.",
+    "descriptions": {
+      "about": "About {name}: background, focus areas, skills and education.",
+      "projects": "Selected projects by {name}, with the role, the tools used and links.",
+      "resume": "The résumé of {name}: experience, education and skills.",
+      "contact": "How to contact {name}, current availability and response time."
+    }
+  },
+  "nav": {
+    "label": "Main",
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "resume": "Resume",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "skipToContent": "Skip to content"
+  },
+  "common": {
+    "present": "Present",
+    "periodRange": "{start} – {end}",
+    "opensInNewTab": "(opens in a new tab)",
+    "role": "Role",
+    "stack": "Stack",
+    "links": "Links"
+  },
+  "home": {
+    "viewProjects": "View projects",
+    "getInTouch": "Get in touch",
+    "featuredTitle": "Selected projects",
+    "allProjects": "All projects",
+    "experienceTitle": "Recent experience",
+    "viewResume": "View full resume",
+    "aboutTitle": "About",
+    "aboutCta": "More about {firstName}",
+    "contactTitle": "Let's work together",
+    "contactText": "Have a project, a role or a question in mind? {firstName} would like to hear about it.",
+    "contactCta": "Contact {firstName}"
+  },
+  "about": {
+    "title": "About",
+    "heading": "About {name}",
+    "highlightsTitle": "Focus areas",
+    "skillsTitle": "Skills",
+    "educationTitle": "Education",
+    "certificationsTitle": "Certifications",
+    "languagesTitle": "Languages",
+    "interestsTitle": "Beyond work"
+  },
+  "projects": {
+    "title": "Projects",
+    "intro": "A selection of {firstName}'s work: what was built, why it mattered and the tools behind it.",
+    "otherCategory": "Other projects"
+  },
+  "resume": {
+    "title": "Resume",
+    "experienceTitle": "Experience",
+    "educationTitle": "Education",
+    "skillsTitle": "Skills",
+    "certificationsTitle": "Certifications",
+    "languagesTitle": "Languages",
+    "downloadPdf": "Download PDF",
+    "updated": "Last updated {date}"
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "The quickest way to reach {firstName} is by email.",
+    "emailLabel": "Email",
+    "socialTitle": "Elsewhere",
+    "availabilityTitle": "Availability",
+    "responseTimeTitle": "Response time",
+    "locationTitle": "Location",
+    "form": {
+      "title": "Send a message",
+      "description": "Your message goes straight to {firstName}'s inbox. It isn't stored on this site.",
+      "name": "Name",
+      "email": "Email",
+      "reason": "Reason (optional)",
+      "reasonPlaceholder": "Choose one",
+      "reasons": [
+        "Job opportunity",
+        "Freelance project",
+        "Collaboration",
+        "Something else"
+      ],
+      "message": "Message",
+      "messagePlaceholder": "What would you like to talk about?",
+      "required": "Required",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "success": "Thanks! Your message was sent.",
+      "error": "Your message couldn't be sent. Please try again, or use email instead.",
+      "rateLimited": "Too many messages from your network. Please try again later."
+    },
+    "introNoEmail": "You can reach {firstName} through the links below."
+  },
+  "footer": {
+    "copyright": "© {year} {name}",
+    "socialLabel": "Social links"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "This page doesn't exist or has moved.",
+    "backHome": "Back to home"
+  }
+}
