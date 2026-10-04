@@ -128,9 +128,12 @@ domain). Without these variables the Contact page shows your email and links ins
 ## Security notes
 
 - Secrets are read only on the server. Only `NEXT_PUBLIC_*` variables reach the browser.
-- Responses include `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options` and `Permissions-Policy`
-  (see `next.config.ts`). There is no Content-Security-Policy by default, because Next.js inline scripts would
-  need per-request nonces, which makes pages dynamic; see the Next.js CSP guide if you need one.
+- Responses include `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options` and `Permissions-Policy`,
+  and in production a static `Content-Security-Policy` (see `next.config.ts`): scripts, styles, fonts, images
+  and connections only from your own origin, no plugins, no framing, forms only to your site. It allows inline
+  scripts because Next.js inlines its bootstrap code; a strict nonce-based policy would make every page
+  dynamic (see the Next.js CSP guide). If you add a third-party script, font, image host or API, add its
+  origin to the matching directive.
 - Logs are structured JSON without message text, prompts, provider bodies, raw IPs or keys.
 - The assistant has no tools, its output is rendered without HTML, and its links are limited to your pages and
   the URLs in your content.

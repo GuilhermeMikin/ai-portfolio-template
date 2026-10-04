@@ -36,6 +36,7 @@ export type SocialPlatform =
   | "dribbble"
   | "behance"
   | "medium"
+  | "whatsapp"
   | "website"
   | "other";
 

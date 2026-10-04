@@ -11,6 +11,7 @@ import {
   FaLinkedin,
   FaMastodon,
   FaMedium,
+  FaWhatsapp,
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
@@ -28,6 +29,7 @@ const PLATFORM_ICONS: Record<SocialPlatform, IconType> = {
   dribbble: FaDribbble,
   behance: FaBehance,
   medium: FaMedium,
+  whatsapp: FaWhatsapp,
   website: FaGlobe,
   other: FaLink,
 };

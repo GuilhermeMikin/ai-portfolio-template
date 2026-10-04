@@ -24,9 +24,11 @@ was taken in demo mode, where replies are simulated from the site content and la
 - **One content file:** your profile lives in `src/content/en/profile.ts`, a typed object checked by
   `pnpm content:check` (and before every build). The pages and the assistant read the same data, so they
   can't drift apart.
-- **AI assistant (optional):** a featured card on the home page and a chat panel on every page. It answers
-  only from your content, says when it doesn't know, never invents experience, clients, certifications or
-  availability, and never acts or commits on your behalf.
+- **AI assistant (optional):** a featured card on the home page and a floating "Ask AI" button on every
+  page that opens the chat panel. It answers only from your content, says when it doesn't know, never invents
+  experience, clients, certifications or availability, and never acts or commits on your behalf.
+- **Floating links:** small buttons on the right edge for your social profiles and email (plus "back to
+  top"), taken from the same content as the footer.
 - **Three chat modes:** `live` (a real model through any OpenAI-compatible API), `demo` (simulated replies,
   clearly labeled, no model and no cost) and `off`. Without an API key the chat is off and the site works
   normally.
@@ -222,8 +224,9 @@ repository on Vercel and set the environment variables in the dashboard. The ful
 - The assistant can still be wrong: answers carry a disclaimer and link to the source pages.
 - English is the only bundled locale; URL slugs stay in English when you add languages.
 - There is no CMS: content changes are code changes followed by a rebuild.
-- No Content-Security-Policy header is set by default (Next.js inline scripts would need per-request nonces);
-  the other basic security headers are.
+- The production Content-Security-Policy is static, so it allows inline scripts (Next.js inlines its
+  bootstrap code); a strict nonce-based policy would make every page dynamic. Add origins to it in
+  `next.config.ts` if you load third-party scripts, fonts or APIs.
 
 ## Technical decisions
 

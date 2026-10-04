@@ -62,17 +62,18 @@ export default async function HomePage({ params }: ParamsLocale) {
 
   return (
     <div className={cx(CONTAINER, "pb-20")}>
-      <section className="mx-auto max-w-3xl pb-12 pt-16 text-center sm:pt-24">
+      {/* Compact on phones so the assistant card shows up on the first screen. */}
+      <section className="mx-auto max-w-3xl pb-8 pt-10 text-center sm:pb-12 sm:pt-24">
         <h1 className="break-words text-4xl font-semibold tracking-tight text-ink sm:text-5xl">{person.name}</h1>
-        <p className="mt-4 text-lg font-medium text-ink sm:text-xl">{person.headline}</p>
-        <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted sm:text-lg sm:leading-8">
+        <p className="mt-3 text-lg font-medium text-ink sm:mt-4 sm:text-xl">{person.headline}</p>
+        <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-muted sm:mt-4 sm:text-lg sm:leading-8">
           {person.summary}
         </p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link href={projectsHref} className={BUTTON_PRIMARY}>
+        <div className="mt-6 flex flex-wrap justify-center gap-3 sm:mt-8">
+          <Link href={projectsHref} className={cx(BUTTON_PRIMARY, "min-w-0 flex-1 sm:flex-none")}>
             {messages.home.viewProjects}
           </Link>
-          <Link href={contactHref} className={BUTTON_SECONDARY}>
+          <Link href={contactHref} className={cx(BUTTON_SECONDARY, "min-w-0 flex-1 sm:flex-none")}>
             {messages.home.getInTouch}
           </Link>
         </div>

@@ -11,8 +11,25 @@ const allowedDevOrigins = (process.env.DEV_ALLOWED_ORIGINS ?? "")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
-// Baseline security headers for every route. There is no Content-Security-Policy: Next.js
-// inline scripts would need per-request nonces (see the Next.js CSP guide to add one).
+// A static Content-Security-Policy that keeps every page prerendered. Scripts and styles
+// may only come from this site; inline ones stay allowed because Next.js inlines its
+// bootstrap code (a strict nonce-based policy would make every page dynamic; see the
+// Next.js CSP guide). Production only: `next dev` needs eval for fast refresh.
+// Adding a third-party script, font or API? Add its origin to the matching directive.
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
+// Baseline security headers for every route.
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -21,6 +38,9 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
   },
+  ...(process.env.NODE_ENV === "production"
+    ? [{ key: "Content-Security-Policy", value: contentSecurityPolicy }]
+    : []),
 ];
 
 const nextConfig: NextConfig = {

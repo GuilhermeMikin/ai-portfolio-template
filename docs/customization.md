@@ -85,7 +85,11 @@ Empty or missing sections are not rendered.
 - `availability`, `responseTime` (optional): shown on the Contact page. The assistant repeats your
   availability as written and never goes beyond it.
 - `social`: a list of `{ platform, label, href }`. `platform` picks the icon: `github`, `gitlab`, `linkedin`,
-  `x`, `bluesky`, `mastodon`, `youtube`, `dribbble`, `behance`, `medium`, `website` or `other`.
+  `x`, `bluesky`, `mastodon`, `youtube`, `dribbble`, `behance`, `medium`, `whatsapp` (e.g.
+  `https://wa.me/<number>`), `website` or `other`.
+
+The social links and the email appear in the footer and as small floating buttons on the right edge of every
+page.
 
 You need an email or at least one social link.
 

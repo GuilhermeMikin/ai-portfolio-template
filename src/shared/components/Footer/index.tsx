@@ -12,9 +12,9 @@ const ICON_LINK =
 
 /**
  * Bottom padding while the chat is on. The floating launcher (ChatWidget) is fixed in the
- * bottom-right corner, 48 px tall and 16 px (24 px from `md`) above the viewport's edge, so
- * it reaches up to 72 px. With 96 px of padding, the footer's text and links end above it
- * once the page is scrolled to the bottom, at every width.
+ * bottom-left corner on phones and bottom-right from `md`, 48 px tall and 16 px (24 px from
+ * `md`) above the viewport's edge, so it reaches up to 72 px. With 96 px of padding, the
+ * footer's text and links end above it once the page is scrolled to the bottom.
  */
 const CHAT_LAUNCHER_CLEARANCE = "pb-24";
 
@@ -31,7 +31,9 @@ export function Footer({ locale }: { locale: Locale }) {
   const reserveLauncherSpace = getChatClientConfig().mode !== "off";
 
   return (
-    <footer className="border-t border-line bg-surface print:hidden">
+    // Right padding keeps the footer clear of the floating links (stacked bottom-right on
+    // phones, vertically centered on the right edge from md until xl).
+    <footer className="border-t border-line bg-surface pr-12 md:pr-14 xl:pr-0 print:hidden">
       <div
         className={cx(
           CONTAINER,
