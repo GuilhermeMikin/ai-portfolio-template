@@ -20,10 +20,11 @@
   "disclaimer": "AI answers can be wrong. Check the linked pages or contact {firstName} directly.",
   "sourcesLabel": "Related pages",
   "demoBadge": "Demo",
-  "demoNotice": "Demo mode: replies are simulated from the site content. No AI model is connected.",
+  "demoNotice": "Demo mode: replies are simulated from the site content. Your messages aren't sent to an AI model, and this site doesn't save conversations.",
+  "privacyNotice": "To answer, your questions and the recent conversation are sent to an AI provider. This site doesn't save conversations.",
   "home": {
     "title": "Ask {firstName}'s AI assistant",
-    "description": "Quick answers about projects, skills and experience. It answers only from the content of this site, and conversations aren't stored.",
+    "description": "Quick answers about projects, skills and experience, based on the content of this site.",
     "inputLabel": "Ask a question about {firstName}",
     "placeholder": "Ask about {firstName}'s work…",
     "suggestionsLabel": "Suggested questions",
