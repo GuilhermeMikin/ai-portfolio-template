@@ -1,7 +1,7 @@
 # Deployment guide
 
 The site is a standard Next.js 16 app. Pages are prerendered at build time; only `/api/chat` and
-`/api/contact` run on the server. Any host that runs Node.js 20.9+ works.
+`/api/contact` run on the server. Any host that runs Node.js 22 or newer works.
 
 ## Before you deploy
 
@@ -20,7 +20,8 @@ changing `CHAT_MODE` or `LLM_API_KEY`, rebuild or redeploy.
 
 ## Vercel
 
-1. Push the repository to GitHub, GitLab or Bitbucket and import it in Vercel. The framework (Next.js) and the
+1. Push the repository to GitHub, GitLab or Bitbucket and import it in Vercel (the README's "Deploy with
+   Vercel" button does this for you with a copy of the template). The framework (Next.js) and the
    package manager (pnpm, from `packageManager` in `package.json`) are detected automatically.
 2. Add the environment variables you need (Project → Settings → Environment Variables). Mark API keys and
    tokens as sensitive.
@@ -126,6 +127,9 @@ Create an API key at [resend.com](https://resend.com), verify a sending domain, 
 domain). Without these variables the Contact page shows your email and links instead of a form.
 
 ## Security notes
+
+[SECURITY.md](../SECURITY.md) has the checklist for running the public chat endpoint safely and explains how to
+report a vulnerability.
 
 - Secrets are read only on the server. Only `NEXT_PUBLIC_*` variables reach the browser.
 - Responses include `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options` and `Permissions-Policy`,

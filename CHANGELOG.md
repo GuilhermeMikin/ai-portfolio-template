@@ -24,3 +24,8 @@ First public version, extracted from the author's personal portfolio and turned 
 - Generated Open Graph image, icons and web manifest; JSON-LD from the content.
 - Vitest test suite, `pnpm typecheck`, and `pnpm eval` for model-quality evaluation.
 - README, AGENTS.md and guides for customization, deployment and architecture.
+- GitHub Actions CI running every check on Node 22 and 24, on pushes to `main` and on pull requests, with
+  Dependabot keeping the actions current; a "Deploy with Vercel" button; CONTRIBUTING.md and SECURITY.md, with a
+  checklist for running the public chat endpoint safely. Node.js 22 or newer is required (Node 20 is end-of-life).
+- `pnpm content:check` warns when a real profile still contains the demo's FAQ or instructions about the
+  template author (mikin.ai, "Guilherme (Mikin)", the template repository).

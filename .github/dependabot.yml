@@ -1,0 +1,12 @@
+# Keeps the GitHub Actions used by .github/workflows current (one grouped pull request a month).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      github-actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: ci

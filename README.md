@@ -1,5 +1,8 @@
 # AI Portfolio Template
 
+[![CI](https://github.com/GuilhermeMikin/ai-portfolio-template/actions/workflows/ci.yml/badge.svg)](https://github.com/GuilhermeMikin/ai-portfolio-template/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A personal portfolio website with an optional AI assistant that answers visitors' questions using only the
 content of the site. Built with Next.js, it is configured from one typed content file and works with or
 without an AI provider.
@@ -22,6 +25,12 @@ from the site content and labeled as such.
 with the example profile, so you can try the assistant before installing anything.
 
 **See a customized implementation in production:** [mikin.ai](https://mikin.ai), the author's own portfolio.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGuilhermeMikin%2Fai-portfolio-template&project-name=ai-portfolio&repository-name=ai-portfolio)
+
+The button copies this repository to your Git account and deploys it as it is: the example profile, with the
+chat off. Then follow [Make it yours](#make-it-yours) and add the environment variables from
+[docs/deployment.md](docs/deployment.md).
 
 ## What you get
 
@@ -111,7 +120,7 @@ rate limits and quotas → a streamed answer from the model, built from the syst
 
 ## Requirements
 
-- Node.js 20.9 or newer (22 LTS or 24 LTS recommended)
+- Node.js 22 or newer (an LTS release: 22 or 24)
 - pnpm 10 (`corepack enable` installs the version pinned in `package.json`)
 - Optional: an API key for an OpenAI-compatible provider, an [Upstash](https://upstash.com) Redis database
   and a [Resend](https://resend.com) account
@@ -202,6 +211,8 @@ pnpm build           # runs content:check, then next build
 ```
 
 The test suite never calls a real model: the provider is mocked, including errors and timeouts.
+GitHub Actions runs all of these checks on every push to `main` and every pull request
+([.github/workflows/ci.yml](.github/workflows/ci.yml)); they need no secrets.
 
 **Answer quality** is a different question from software correctness. `pnpm eval` sends the questions in
 `scripts/eval/queries.json` to a running site with a real model and checks grounding, refusals, declined
@@ -211,8 +222,9 @@ when you replace the example profile (`pnpm eval --help`).
 ## Deployment
 
 The app is a standard Next.js project: `pnpm build && pnpm start` on any Node.js host, or import the
-repository on Vercel and set the environment variables in the dashboard. The full checklist is in
-[docs/deployment.md](docs/deployment.md). The essentials for a **public site with the live chat**:
+repository on Vercel (or use the "Deploy with Vercel" button above) and set the environment variables in the
+dashboard. The full checklist is in [docs/deployment.md](docs/deployment.md). The essentials for a **public
+site with the live chat**:
 
 - Set `NEXT_PUBLIC_SITE_URL` to your domain and `isExample: false` in your profile.
 - Use **Upstash** for rate limits. In-memory counters live inside one server process: on serverless or
@@ -256,6 +268,12 @@ repository on Vercel and set the environment variables in the dashboard. The ful
   the dependency list stays small.
 - **Static pages.** Every locale's pages are prerendered, which keeps hosting cheap and fast; only the two API
   routes run on the server.
+
+## Contributing and security
+
+Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Please report vulnerabilities privately as
+described in [SECURITY.md](SECURITY.md), which also lists what to configure before you expose the public chat
+endpoint with a live model.
 
 ## Need help customizing it?
 
