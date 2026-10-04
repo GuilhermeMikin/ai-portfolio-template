@@ -220,12 +220,13 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PLACEHOLDER_PATTERN = /\b(TODO|TBD|FIXME|lorem ipsum)\b|\byour name\b/i;
 /**
  * Text from the bundled example that should not survive in a real profile: example.com
- * addresses, the fictional-profile notes, and the public demo's FAQ entry and assistant
- * instructions about the template and its author (repository URL, mikin.ai, "Guilherme
- * (Mikin)", and the instruction to share "the FAQ answer about the open-source template",
- * in English and Portuguese), which would otherwise advertise the author's services on
- * someone else's site. The phrases are narrow on purpose: the author's first name alone
- * or "open-source template" would flag owners who are called Guilherme or maintain one.
+ * addresses, the fictional-profile notes, and the public demo's links, FAQ entry and
+ * assistant instructions about the template and its author (repository URL, mikin.ai, the
+ * author's LinkedIn profile, "Guilherme (Mikin)", and the instruction to share "the FAQ
+ * answer about the open-source template", in English and Portuguese), which would otherwise
+ * advertise the author on someone else's site. The phrases are narrow on purpose: the
+ * author's first name alone or "open-source template" would flag owners who are called
+ * Guilherme or maintain one.
  */
 const EXAMPLE_LEFTOVER_PATTERN = new RegExp(
   [
@@ -234,6 +235,7 @@ const EXAMPLE_LEFTOVER_PATTERN = new RegExp(
     String.raw`\bperfil de exemplo fict[ií]cio\b`,
     String.raw`github\.com\/GuilhermeMikin\/ai-portfolio-template\b`,
     String.raw`\bmikin\.ai\b`,
+    String.raw`linkedin\.com\/in\/guilhermebl(?![\w-])`,
     String.raw`\bGuilherme \(Mikin\)`,
     String.raw`\bFAQ answer about the open-source template\b`,
     String.raw`\bresposta do FAQ sobre o template open source\b`,
@@ -599,7 +601,7 @@ export function validateProfile(profile: Profile, options: ValidateOptions = {})
       if (EXAMPLE_LEFTOVER_PATTERN.test(value)) {
         warning(
           path,
-          "looks like leftover example data (an example.com address, the fictional example profile, or the demo's FAQ and instructions about the template and its author)"
+          "looks like leftover example data (an example.com address, the fictional example profile, or the demo's links, FAQ and instructions about the template and its author)"
         );
       }
     });

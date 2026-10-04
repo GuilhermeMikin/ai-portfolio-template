@@ -44,9 +44,10 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
    - `assistant.suggestedQuestions`: at most three, each answerable from the content.
    - `assistant.faq`: only answers the owner has confirmed (rates, relocation, notice period, …). Drop the
      example's entries and instructions about this template and its author; they exist for the public demo.
+     The example's social links (the template repository, the author's LinkedIn and website) go too.
    - Remove optional fields you have no data for instead of leaving placeholders; empty sections are hidden.
-   - Set `isExample: false` (or remove it). While it is `true` the site shows an "example profile" notice and
-     asks search engines not to index it.
+   - Set `isExample: false` (or remove it). While it is `true` the site shows a demo banner and an "example
+     profile" notice, and asks search engines not to index it.
 3. **Assets (optional).** Put a portrait or logo under `public/images/` and reference it with a path starting
    with `/` (`person.photo` with an `alt` text; `brand.logo` with the image's intrinsic width and height).
    Remote image URLs are rejected. A résumé PDF goes in

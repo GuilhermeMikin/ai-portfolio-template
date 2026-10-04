@@ -3,16 +3,16 @@ import type { Profile } from "../schema";
 /**
  * EXAMPLE PROFILE — Jordan Rivera is a fictional person.
  *
- * Every employer, project, school, certification and link below is invented to
- * demonstrate the template. The email uses the reserved `example.com` domain, the GitHub
- * and LinkedIn links point to those sites' home pages (not to anyone's profile), and the
- * website link points to the template author's own site. The FAQ entry about this website
- * and the matching assistant instructions promote the template on its public demo.
+ * Every employer, project, school and certification below is invented to demonstrate the
+ * template, and the email uses the reserved `example.com` domain. The social links are not
+ * Jordan's: they point to the template's source code and to its author's LinkedIn profile and
+ * website, labelled as such. The FAQ entries about this website and the matching assistant
+ * instructions promote the template on its public demo.
  * Replace this file with your own information (docs/customization.md walks through
  * each field) and set `isExample: false`.
  *
- * The site renders this file and the AI assistant answers only from it, so keep it
- * accurate and public: anything written here can be repeated to visitors.
+ * The site renders this file and the AI assistant is instructed to answer only from it, so
+ * keep it accurate and public: anything written here can be repeated to visitors.
  */
 export const profile: Profile = {
   isExample: true,
@@ -188,8 +188,16 @@ export const profile: Profile = {
       "Open to senior product engineering roles and a limited number of freelance projects from January 2027.",
     responseTime: "Usually replies within two business days.",
     social: [
-      { platform: "github", label: "GitHub", href: "https://github.com" },
-      { platform: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com" },
+      {
+        platform: "github",
+        label: "Template source on GitHub",
+        href: "https://github.com/GuilhermeMikin/ai-portfolio-template",
+      },
+      {
+        platform: "linkedin",
+        label: "Template author on LinkedIn",
+        href: "https://www.linkedin.com/in/guilhermebl/",
+      },
       { platform: "website", label: "mikin.ai", href: "https://mikin.ai" },
     ],
   },
@@ -215,7 +223,7 @@ export const profile: Profile = {
       {
         question: "Is Jordan Rivera a real person?",
         answer:
-          "No. Jordan Rivera is a fictional example profile used to demonstrate this portfolio template. The employers, projects and contact details are placeholders.",
+          "No. Jordan Rivera is a fictional example profile used to demonstrate this portfolio template. The employers and projects are invented and the email address is a placeholder. The GitHub, LinkedIn and website links aren't Jordan's: they lead to the template's source code and to its author, Guilherme.",
       },
       {
         question: "Who made this website, and can I get one like it?",

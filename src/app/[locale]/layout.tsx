@@ -4,11 +4,12 @@ import type { Metadata } from "next";
 import { getAllowedExternalHrefs, getContent, getFirstName, getSiteAssetPaths } from "@/content";
 import { getChatClientConfig } from "@/lib/ai/config";
 import { ChatWidgetRoot } from "@/shared/components/ChatWidget";
+import { DemoBanner } from "@/shared/components/DemoBanner";
 import { FloatingLinks, type FloatingLink } from "@/shared/components/FloatingLinks";
 import { Footer } from "@/shared/components/Footer";
 import { Header, type HeaderNavItem } from "@/shared/components/Header";
 import { StructuredData } from "@/shared/components/StructuredData";
-import { SUPPORTED_LOCALES, resolveLocale, toLanguageTag } from "@/shared/config/site";
+import { SUPPORTED_LOCALES, TEMPLATE_REPOSITORY_URL, resolveLocale, toLanguageTag } from "@/shared/config/site";
 import { THEME_INIT_SCRIPT } from "@/shared/config/theme";
 import type { ParamsLocale } from "@/shared/types";
 import { inter } from "@/shared/utils/fonts";
@@ -72,6 +73,11 @@ export default async function LocaleLayout({
             >
               {messages.nav.skipToContent}
             </a>
+            <DemoBanner
+              isExample={profile.isExample}
+              href={TEMPLATE_REPOSITORY_URL}
+              labels={{ ...messages.demoBanner, opensInNewTab: messages.common.opensInNewTab }}
+            />
             <Header
               locale={locale}
               ownerName={profile.person.name}

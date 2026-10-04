@@ -258,7 +258,10 @@ describe("validateProfile", () => {
 
   it("warns about the demo's promotion of the template author, but not about owners who share his name", () => {
     const profile = makeProfile();
-    profile.contact.social = [{ platform: "website", label: "mikin.ai", href: "https://mikin.ai" }];
+    profile.contact.social = [
+      { platform: "website", label: "mikin.ai", href: "https://mikin.ai" },
+      { platform: "linkedin", label: "Template author on LinkedIn", href: "https://www.linkedin.com/in/guilhermebl/" },
+    ];
     profile.assistant.faq = [
       { question: "Who made this site?", answer: "An open-source template created by software engineer Guilherme (Mikin)." },
     ];
@@ -270,6 +273,7 @@ describe("validateProfile", () => {
     expect(warningPaths(profile)).toEqual([
       "contact.social[0].label",
       "contact.social[0].href",
+      "contact.social[1].href",
       "assistant.faq[0].answer",
       "assistant.instructions[0]",
       "assistant.instructions[1]",
@@ -278,6 +282,9 @@ describe("validateProfile", () => {
 
     const namesake = makeProfile();
     namesake.person.name = "Guilherme Souza";
+    namesake.contact.social = [
+      { platform: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/guilhermebl-souza/" },
+    ];
     namesake.about.bio = [
       "I'm Guilherme, a backend engineer in Recife.",
       "I maintain an open-source template for Astro blogs.",
