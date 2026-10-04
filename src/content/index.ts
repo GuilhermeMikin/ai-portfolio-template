@@ -14,6 +14,9 @@ import { DEFAULT_LOCALE, type Locale } from "@/shared/config/site";
 import enChat from "./en/chat.json";
 import enMessages from "./en/messages.json";
 import { profile as enProfile } from "./en/profile";
+import ptBrChat from "./pt-br/chat.json";
+import ptBrMessages from "./pt-br/messages.json";
+import { profile as ptBrProfile } from "./pt-br/profile";
 import type { Profile } from "./schema";
 
 export type SiteMessages = typeof enMessages;
@@ -27,6 +30,7 @@ export type LocaleContent = {
 
 export const contentByLocale: Record<Locale, LocaleContent> = {
   en: { profile: enProfile, messages: { ...enMessages, chat: enChat } },
+  "pt-br": { profile: ptBrProfile, messages: { ...ptBrMessages, chat: ptBrChat } },
 };
 
 export function getContent(locale: Locale): LocaleContent {

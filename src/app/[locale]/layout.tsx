@@ -19,7 +19,7 @@ const NAV_PAGES = ["about", "projects", "resume", "contact"] as const;
 /**
  * Only the supported locales exist. Any other first segment (`/xx`, `/favicon.ico`) is a
  * plain 404 served by the prerendered `app/not-found.tsx`; locale-less page paths such as
- * `/about` are redirected in next.config.ts.
+ * `/about` are redirected by src/proxy.ts.
  */
 export const dynamicParams = false;
 
