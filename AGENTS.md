@@ -116,9 +116,10 @@ language.
 | `scripts/` | `check-content.ts`, `check-tailwind-classes.ts`, `eval/` |
 | `tests/` | Vitest suites |
 | `docs/` | Customization, deployment and architecture guides |
+| `.github/workflows/ci.yml` | CI: the checks below on every push to `main` and every pull request |
 
 ## Definition of done
 
-`pnpm content:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm build` all pass; the site works with
-the chat off; no example data or placeholder text remains (unless the owner wants the demo); no secrets or
-private data were added to the repository.
+`pnpm content:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm tailwind:check` and `pnpm build` all
+pass (CI runs them on every pull request); the site works with the chat off; no example data or placeholder text
+remains (unless the owner wants the demo); no secrets or private data were added to the repository.

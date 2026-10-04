@@ -256,6 +256,26 @@ describe("validateProfile", () => {
     expect(warningPaths(profile)).toEqual(["isExample"]);
   });
 
+  it("warns about the demo's promotion of the template author, but not about owners who share his name", () => {
+    const profile = makeProfile();
+    profile.contact.social = [{ platform: "website", label: "mikin.ai", href: "https://mikin.ai" }];
+    profile.assistant.faq = [
+      { question: "Who made this site?", answer: "An open-source template created by software engineer Guilherme (Mikin)." },
+    ];
+    profile.assistant.instructions = ["Mention that Guilherme can build an assistant like this one at https://mikin.ai."];
+    expect(warningPaths(profile)).toEqual([
+      "contact.social[0].label",
+      "contact.social[0].href",
+      "assistant.faq[0].answer",
+      "assistant.instructions[0]",
+    ]);
+
+    const namesake = makeProfile();
+    namesake.person.name = "Guilherme Souza";
+    namesake.about.bio = ["I'm Guilherme, a backend engineer in Recife."];
+    expect(validateProfile(namesake)).toEqual([]);
+  });
+
   it("warns while the example profile is active", () => {
     const profile = makeProfile();
     profile.isExample = true;

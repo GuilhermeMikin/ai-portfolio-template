@@ -218,8 +218,15 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const YEAR_MONTH_PATTERN = /^\d{4}(?:-(0[1-9]|1[0-2]))?$/;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PLACEHOLDER_PATTERN = /\b(TODO|TBD|FIXME|lorem ipsum)\b|\byour name\b/i;
+/**
+ * Text from the bundled example that should not survive in a real profile: example.com
+ * addresses, the fictional-profile notes, and the public demo's FAQ entry and assistant
+ * instructions about the template and its author (repository URL, mikin.ai, "Guilherme
+ * (Mikin)"), which would otherwise advertise the author's services on someone else's site.
+ * The author's first name alone is not matched: owners called Guilherme are common.
+ */
 const EXAMPLE_LEFTOVER_PATTERN =
-  /\bexample\.(?:com|org|net)\b|\bfictional example profile\b|\bperfil de exemplo fict[ií]cio\b|github\.com\/GuilhermeMikin\/ai-portfolio-template\b/i;
+  /\bexample\.(?:com|org|net)\b|\bfictional example profile\b|\bperfil de exemplo fict[ií]cio\b|github\.com\/GuilhermeMikin\/ai-portfolio-template\b|\bmikin\.ai\b|\bGuilherme \(Mikin\)/i;
 
 function walkStrings(value: unknown, path: string, visit: (path: string, value: string) => void) {
   if (typeof value === "string") {
@@ -577,7 +584,10 @@ export function validateProfile(profile: Profile, options: ValidateOptions = {})
     // Leftovers from the bundled example once it is marked as real content.
     walkStrings(profile, "", (path, value) => {
       if (EXAMPLE_LEFTOVER_PATTERN.test(value)) {
-        warning(path, "looks like leftover example data (example.com address, the fictional example profile or the demo's template FAQ)");
+        warning(
+          path,
+          "looks like leftover example data (an example.com address, the fictional example profile, or the demo's FAQ and instructions about the template and its author)"
+        );
       }
     });
   }
