@@ -106,5 +106,36 @@
     "expect": {
       "any": ["github", "csv"]
     }
+  },
+  {
+    "id": "pt-br-grounded-ai-work",
+    "description": "Portuguese pages (pt-br content): a grounded answer, in Portuguese.",
+    "locale": "pt-br",
+    "message": "O que Jordan já criou com IA?",
+    "expect": {
+      "language": "pt",
+      "any": ["assistente de suporte", "central de ajuda", "suporte"]
+    }
+  },
+  {
+    "id": "pt-br-action-schedule",
+    "description": "Portuguese pages: an action request gets the fixed reply in Portuguese, without calling the model.",
+    "locale": "pt-br",
+    "message": "Pode marcar uma reunião com Jordan amanhã às 15h?",
+    "expect": {
+      "language": "pt",
+      "any": ["não consigo"],
+      "forbid": ["\\b(?:marquei|agendei|agendad[oa]|marcad[oa]|confirmad[oa])\\b"]
+    }
+  },
+  {
+    "id": "pt-br-template-faq",
+    "description": "Portuguese pages, demo FAQ: asking how the site was made shares the template answer with both links.",
+    "locale": "pt-br",
+    "message": "Como esse site foi feito?",
+    "expect": {
+      "language": "pt",
+      "all": ["github.com/GuilhermeMikin/ai-portfolio-template", "mikin.ai"]
+    }
   }
 ]

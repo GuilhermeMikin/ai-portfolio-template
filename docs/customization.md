@@ -146,8 +146,9 @@ The header has a sun/moon button that switches between the light and dark themes
 **A light-only site:** remove `<ThemeToggle …/>` from `src/shared/components/Header/index.tsx` and the
 `@media screen { :root[data-theme="dark"] … }` block from `src/app/globals.css`. Keep `color-scheme: only light`
 in `:root`: it stops browsers' automatic dark mode from recoloring the page. Then set `colorScheme: "only light"`
-and a single `themeColor: THEME_COLORS.light` in `src/app/layout.tsx`, and drop the dark-theme assertions in
-`tests/seo-brand-colors.test.ts`. The inline theme script can stay: without dark tokens it changes nothing.
+and a single `themeColor: THEME_COLORS.light` in `src/app/layout.tsx`. Finally, drop the dark-theme assertions in
+`tests/seo-brand-colors.test.ts` and the two theme-toggle label assertions in `tests/site-pages.test.ts`. The
+inline theme script can stay: without dark tokens it changes nothing.
 
 ## Languages
 
