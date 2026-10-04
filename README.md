@@ -15,6 +15,9 @@ without an AI provider.
 The screenshots show the bundled example profile, **Jordan Rivera, a fictional person**. The chat screenshot
 was taken in demo mode, where replies are simulated from the site content and labeled as such.
 
+**Live demo:** [ai-portfolio-template.mikin.ai](https://ai-portfolio-template.mikin.ai) runs this repository
+with the example profile, so you can try the assistant before installing anything.
+
 **See a customized implementation in production:** [mikin.ai](https://mikin.ai), the author's own portfolio.
 
 ## What you get
@@ -215,7 +218,7 @@ repository on Vercel and set the environment variables in the dashboard. The ful
 
 - **Hosting:** the pages are static. Check your host's plans and terms; some free tiers do not allow
   commercial use (for example, Vercel's Hobby plan is for personal, non-commercial projects).
-- **AI usage:** with the example profile, each question sends roughly 2,500 tokens of instructions and
+- **AI usage:** with the example profile, each question sends roughly 2,600 tokens of instructions and
   content, plus recent conversation turns (up to about 2,800 more), and receives at most `CHAT_MAX_TOKENS`
   (700 by default). Multiply by your provider's per-token prices. `CHAT_DAILY_REQUEST_LIMIT` (300 by
   default) and `CHAT_IP_DAILY_REQUEST_LIMIT` (50 per visitor) bound the number of model requests per day, not

@@ -190,7 +190,7 @@ export type Profile = {
     suggestedQuestions: string[];
     /** Extra public knowledge for the assistant. Anything here may be shown to visitors. */
     faq?: FaqEntry[];
-    /** Optional style guidance (tone, answer length). It cannot override the built-in safety rules. */
+    /** Optional guidance on tone, answer length and what to bring up. It cannot override the built-in rules. */
     instructions?: string[];
   };
 };
@@ -218,7 +218,8 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const YEAR_MONTH_PATTERN = /^\d{4}(?:-(0[1-9]|1[0-2]))?$/;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PLACEHOLDER_PATTERN = /\b(TODO|TBD|FIXME|lorem ipsum)\b|\byour name\b/i;
-const EXAMPLE_LEFTOVER_PATTERN = /\bexample\.(?:com|org|net)\b|\bfictional example profile\b/i;
+const EXAMPLE_LEFTOVER_PATTERN =
+  /\bexample\.(?:com|org|net)\b|\bfictional example profile\b|github\.com\/GuilhermeMikin\/ai-portfolio-template\b/i;
 
 function walkStrings(value: unknown, path: string, visit: (path: string, value: string) => void) {
   if (typeof value === "string") {
@@ -576,7 +577,7 @@ export function validateProfile(profile: Profile, options: ValidateOptions = {})
     // Leftovers from the bundled example once it is marked as real content.
     walkStrings(profile, "", (path, value) => {
       if (EXAMPLE_LEFTOVER_PATTERN.test(value)) {
-        warning(path, "looks like leftover example data (example.com address or the fictional example profile)");
+        warning(path, "looks like leftover example data (example.com address, the fictional example profile or the demo's template FAQ)");
       }
     });
   }

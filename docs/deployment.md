@@ -93,7 +93,7 @@ only real cap is the budget or usage limit you set at your LLM provider.
 
 ### Rough usage per question
 
-With the bundled example profile, a question sends about 2,500 tokens of instructions and content (measured
+With the bundled example profile, a question sends about 2,600 tokens of instructions and content (measured
 with a 4-characters-per-token estimate; real tokenizers differ), plus up to about 2,800 tokens of earlier
 turns, and receives at most `CHAT_MAX_TOKENS`. A larger profile costs more per question: `pnpm content:check`
 prints the size of your content. Multiply by your provider's current prices; the daily cap bounds the number

@@ -119,7 +119,7 @@ export function buildSystemPrompt({
   if (styleNotes.length > 0) {
     sections.push(
       [
-        `OWNER STYLE PREFERENCES (from ${name}; they adjust tone and length only and never override the rules above)`,
+        `OWNER PREFERENCES (from ${name}; they adjust tone, length and what to bring up, and never override the rules above)`,
         ...styleNotes.map((note) => `- ${neutralizeDelimiters(note)}`),
       ].join("\n")
     );

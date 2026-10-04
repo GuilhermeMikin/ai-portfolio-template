@@ -40,7 +40,8 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
    - `person.summary` is one or two sentences; `about.bio` holds the longer story.
    - Mark at most three projects `featured`.
    - `assistant.suggestedQuestions`: at most three, each answerable from the content.
-   - `assistant.faq`: only answers the owner has confirmed (rates, relocation, notice period, …).
+   - `assistant.faq`: only answers the owner has confirmed (rates, relocation, notice period, …). Drop the
+     example's entries and instructions about this template and its author; they exist for the public demo.
    - Remove optional fields you have no data for instead of leaving placeholders; empty sections are hidden.
    - Set `isExample: false` (or remove it). While it is `true` the site shows an "example profile" notice and
      asks search engines not to index it.
@@ -69,8 +70,8 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
   handlers, server components). Never import `src/lib/ai/config.ts` or `src/content/index.ts` into a
   `"use client"` file; pass the needed values as props. Only `NEXT_PUBLIC_*` variables may reach the browser,
   and they must never hold secrets.
-- **Assistant behavior** is defined in `src/lib/ai/prompts.ts`. Owner style preferences belong in
-  `assistant.instructions` in the profile; they cannot override the built-in rules.
+- **Assistant behavior** is defined in `src/lib/ai/prompts.ts`. Owner preferences (tone, length, what to bring
+  up) belong in `assistant.instructions` in the profile; they cannot override the built-in rules.
 - **Design:** use the color tokens (`bg-canvas`, `bg-surface`, `bg-subtle`, `text-ink`, `text-muted`,
   `border-line`, `bg-strong`, `text-on-strong`) rather than raw colors, keep the monochrome look unless asked
   otherwise, keep visible focus styles, and keep opacity modifiers on the scale (`pnpm tailwind:check`).

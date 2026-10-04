@@ -247,8 +247,9 @@ describe("validateProfile", () => {
     profile.contact.email = "hello@example.com";
     profile.assistant.faq = [
       { question: "Is this real?", answer: "No, this is a fictional example profile." },
+      { question: "Who made this site?", answer: "See https://github.com/GuilhermeMikin/ai-portfolio-template." },
     ];
-    expect(warningPaths(profile)).toEqual(["contact.email", "assistant.faq[0].answer"]);
+    expect(warningPaths(profile)).toEqual(["contact.email", "assistant.faq[0].answer", "assistant.faq[1].answer"]);
 
     profile.isExample = true;
     expect(warningPaths(profile)).toEqual(["isExample"]);
