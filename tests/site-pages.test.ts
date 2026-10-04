@@ -152,9 +152,19 @@ describe("header navigation", () => {
           { page: "about", label: "About" },
           { page: "projects", label: "Projects" },
         ],
-        labels: { nav: "Main", openMenu: "Open menu", closeMenu: "Close menu", language: "Language" },
+        labels: {
+          nav: "Main",
+          openMenu: "Open menu",
+          closeMenu: "Close menu",
+          language: "Language",
+          themeToDark: "Switch to dark theme",
+          themeToLight: "Switch to light theme",
+        },
       })
     );
+    // The theme toggle is always there, labelled for both themes.
+    expect(html).toContain("Switch to dark theme");
+    expect(html).toContain("Switch to light theme");
     const links = [...html.matchAll(/<a [^>]*>/g)].map(([tag]) => tag);
     const current = links.filter((tag) => tag.includes('aria-current="page"'));
     const others = links.filter((tag) => tag.includes('href="/en/about"'));

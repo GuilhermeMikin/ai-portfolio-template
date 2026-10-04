@@ -9,6 +9,7 @@ import { Footer } from "@/shared/components/Footer";
 import { Header, type HeaderNavItem } from "@/shared/components/Header";
 import { StructuredData } from "@/shared/components/StructuredData";
 import { SUPPORTED_LOCALES, resolveLocale, toLanguageTag } from "@/shared/config/site";
+import { THEME_INIT_SCRIPT } from "@/shared/config/theme";
 import type { ParamsLocale } from "@/shared/types";
 import { inter } from "@/shared/utils/fonts";
 import { buildRootMetadata } from "@/shared/utils/seo";
@@ -47,8 +48,12 @@ export default async function LocaleLayout({
   ];
 
   return (
-    <html lang={toLanguageTag(locale)} className={inter.variable}>
-      <body className="bg-canvas font-sans text-ink antialiased">
+    // `data-theme` is set on <html> by the inline script before hydration.
+    <html lang={toLanguageTag(locale)} className={inter.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
+      <body className="bg-canvas font-sans text-ink antialiased print:bg-surface">
         <StructuredData locale={locale} />
         <ChatWidgetRoot
           locale={locale}
@@ -77,6 +82,8 @@ export default async function LocaleLayout({
                 openMenu: messages.nav.openMenu,
                 closeMenu: messages.nav.closeMenu,
                 language: messages.nav.language,
+                themeToDark: messages.nav.themeToDark,
+                themeToLight: messages.nav.themeToLight,
               }}
             />
             {/* Right padding from md keeps content clear of the floating links until the
