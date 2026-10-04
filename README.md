@@ -7,13 +7,16 @@ without an AI provider.
 ![Home page on desktop](docs/screenshots/home-desktop.png)
 
 <p align="center">
-  <img src="docs/screenshots/home-mobile.png" alt="Home page on a phone" width="300" />
-  &nbsp;&nbsp;
-  <img src="docs/screenshots/chat-demo-mobile.png" alt="Chat panel in demo mode on a phone" width="300" />
+  <img src="docs/screenshots/home-mobile.png" alt="Home page on a phone, light theme" width="250" />
+  &nbsp;
+  <img src="docs/screenshots/home-mobile-dark-pt-br.png" alt="Home page on a phone, dark theme in Portuguese" width="250" />
+  &nbsp;
+  <img src="docs/screenshots/chat-demo-mobile.png" alt="Chat panel in demo mode on a phone" width="250" />
 </p>
 
-The screenshots show the bundled example profile, **Jordan Rivera, a fictional person**. The chat screenshot
-was taken in demo mode, where replies are simulated from the site content and labeled as such.
+The screenshots show the bundled example profile, **Jordan Rivera, a fictional person**, in the light theme
+and in the dark theme in Portuguese. The chat screenshot was taken in demo mode, where replies are simulated
+from the site content and labeled as such.
 
 **Live demo:** [ai-portfolio-template.mikin.ai](https://ai-portfolio-template.mikin.ai) runs this repository
 with the example profile, so you can try the assistant before installing anything.
@@ -24,9 +27,9 @@ with the example profile, so you can try the assistant before installing anythin
 
 - **Pages:** Home, About, Projects, Resume and Contact, plus a 404 page. Content, projects and contact details
   are fully usable without the chat.
-- **One content file:** your profile lives in `src/content/en/profile.ts`, a typed object checked by
-  `pnpm content:check` (and before every build). The pages and the assistant read the same data, so they
-  can't drift apart.
+- **One content file per language:** your profile lives in `src/content/en/profile.ts` (and its Portuguese
+  version in `src/content/pt-br/profile.ts`), a typed object checked by `pnpm content:check` (and before every
+  build). The pages and the assistant read the same data, so they can't drift apart.
 - **AI assistant (optional):** a featured card on the home page and a floating "Ask AI" button on every
   page that opens the chat panel. It answers only from your content, says when it doesn't know, never invents
   experience, clients, certifications or availability, and never acts or commits on your behalf.
@@ -38,12 +41,16 @@ with the example profile, so you can try the assistant before installing anythin
 - **Abuse and cost guards:** payload and message limits, per-visitor rate limits, per-conversation quotas, an
   estimated token budget, and daily caps per visitor and for the whole site, backed by Upstash Redis or (for
   development) memory. A request that is turned away uses up no quota.
-- **Monochrome, accessible design:** light gray background, white surfaces, graphite text; keyboard
-  navigation, visible focus, skip link, reduced-motion support; tested from 320 px wide to desktop.
+- **Light and dark themes:** a monochrome palette (light gray and white, or near-black graphite) with a
+  sun/moon toggle in the header. The site follows the system setting until the visitor chooses, remembers the
+  choice and never flashes the wrong theme on load.
+- **Accessible:** keyboard navigation, visible focus, skip link, reduced-motion support, text contrast of
+  4.5:1 or better in both themes; tested from 320 px wide to desktop.
 - **SEO basics:** metadata, canonical URLs, Open Graph images generated from your content, JSON-LD, sitemap,
   robots and web manifest. The example profile is marked `noindex`.
-- **Ready for more languages:** routes are `/{locale}/…`; English ships by default and adding a language is a
-  documented, type-checked step.
+- **English and Brazilian Portuguese:** routes are `/{locale}/…`. Visitors land in their saved language or,
+  the first time, their browser's; a switcher in the header remembers the choice. Removing a language or adding
+  another is a documented, type-checked step.
 - **Optional contact form** through [Resend](https://resend.com), with a honeypot and rate limiting.
 
 ## How the assistant works
@@ -80,7 +87,8 @@ obvious prompt-injection attempts as a first line, not as the main defense.
 
 ```
 src/
-  content/            Your data: profile.ts (typed), messages.json (UI text), chat.json (assistant UI text)
+  content/            Your data, one folder per language (en/, pt-br/): profile.ts (typed),
+                      messages.json (UI text), chat.json (assistant UI text)
     schema.ts         Content types and the validator used by `pnpm content:check`
   app/
     [locale]/         Pages (statically generated per locale) and the Open Graph image
@@ -89,7 +97,9 @@ src/
   lib/ai/             Server-only assistant logic: config, context builder, prompts, intents,
                       guardrails, provider client, demo replies, structured logs
   lib/rate-limit/     Upstash and in-memory stores behind one small interface
-  shared/components/  Header, footer, chat widget, home assistant card, safe Markdown renderer, …
+  shared/components/  Header (language switcher, theme toggle), footer, chat widget, home assistant card,
+                      safe Markdown renderer, …
+  proxy.ts            Sends `/about`, `/projects`, … to the visitor's language
 scripts/              check-content.ts, check-tailwind-classes.ts, eval/ (model-quality evaluation)
 tests/                Vitest suites
 ```
@@ -143,12 +153,13 @@ In development, rate limits use memory; for a public deployment see [Deployment]
 
 ## Make it yours
 
-1. Replace the example in `src/content/en/profile.ts` with your own data and set `isExample: false`.
-   Every field is documented in [docs/customization.md](docs/customization.md).
+1. Replace the example in `src/content/en/profile.ts` with your own data and set `isExample: false`. Do the
+   same in `src/content/pt-br/profile.ts`, or remove Portuguese if you don't need it. Every field is documented
+   in [docs/customization.md](docs/customization.md).
 2. Run `pnpm content:check`. It explains any problem (bad URL, invalid date, missing contact method,
    too many suggested questions, …) and shows how much of the assistant's context budget you use.
-3. Optional: add a logo or photo under `public/`, tweak colors in `src/app/globals.css`, adjust UI text in
-   `src/content/en/messages.json` and `chat.json`, or add a language.
+3. Optional: add a logo or photo under `public/`, tweak the light and dark colors in `src/app/globals.css`,
+   adjust UI text in `messages.json` and `chat.json`, or add a language.
 
 **Using an AI coding assistant?** Point it at [AGENTS.md](AGENTS.md). It contains the setup playbook, the
 rules (never invent facts about you, keep secrets out of content) and the checks to run. A prompt such as
@@ -225,7 +236,8 @@ repository on Vercel and set the environment variables in the dashboard. The ful
   their price; demo replies and fixed replies don't count.
 - **Upstash and Resend** have their own plans and limits.
 - The assistant can still be wrong: answers carry a disclaimer and link to the source pages.
-- English is the only bundled locale; URL slugs stay in English when you add languages.
+- English and Brazilian Portuguese are bundled, and every language needs its own copy of your profile. URL
+  slugs (`/projects`) stay the same in every language.
 - There is no CMS: content changes are code changes followed by a rebuild.
 - The production Content-Security-Policy is static, so it allows inline scripts (Next.js inlines its
   bootstrap code); a strict nonce-based policy would make every page dynamic. Add origins to it in
