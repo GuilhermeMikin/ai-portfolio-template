@@ -3,8 +3,8 @@
 [![CI](https://github.com/GuilhermeMikin/ai-portfolio-template/actions/workflows/ci.yml/badge.svg)](https://github.com/GuilhermeMikin/ai-portfolio-template/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A personal portfolio website with an optional AI assistant that answers visitors' questions using only the
-content of the site. Built with Next.js, it is configured from one typed content file and works with or
+A personal portfolio website with an optional AI assistant that answers visitors' questions from the content
+of the site. Built with Next.js, it is configured from one typed profile file per language and works with or
 without an AI provider.
 
 ![Home page on desktop](docs/screenshots/home-desktop.png)
@@ -18,8 +18,9 @@ without an AI provider.
 </p>
 
 The screenshots show the bundled example profile, **Jordan Rivera, a fictional person**, in the light theme
-and in the dark theme in Portuguese. The chat screenshot was taken in demo mode, where replies are simulated
-from the site content and labeled as such.
+and in the dark theme in Portuguese. While the example is in place, a banner at the top says so and links to
+this repository. The chat screenshot was taken in demo mode, where replies are simulated from the site content
+and labeled as such.
 
 **Live demo:** [ai-portfolio-template.mikin.ai](https://ai-portfolio-template.mikin.ai) runs this repository
 with the example profile, so you can try the assistant before installing anything.
@@ -38,15 +39,17 @@ chat off. Then follow [Make it yours](#make-it-yours) and add the environment va
   are fully usable without the chat.
 - **One content file per language:** your profile lives in `src/content/en/profile.ts` (and its Portuguese
   version in `src/content/pt-br/profile.ts`), a typed object checked by `pnpm content:check` (and before every
-  build). The pages and the assistant read the same data, so they can't drift apart.
+  build). In each language the pages and the assistant read the same data, so what visitors see and what the
+  assistant knows come from one source. Each translation is its own file, so keep their facts in step.
 - **AI assistant (optional):** a featured card on the home page and a floating "Ask AI" button on every
-  page that opens the chat panel. It answers only from your content, says when it doesn't know, never invents
-  experience, clients, certifications or availability, and never acts or commits on your behalf.
+  page that opens the chat panel. It is instructed to answer only from your content and to say when it
+  doesn't know instead of inventing experience, clients, certifications or availability. Like any model, it
+  can still get things wrong. It has no tools, so it cannot act or commit on your behalf.
 - **Floating links:** small buttons on the right edge for your social profiles and email (plus "back to
   top"), taken from the same content as the footer.
-- **Three chat modes:** `live` (a real model through any OpenAI-compatible API), `demo` (simulated replies,
-  clearly labeled, no model and no cost) and `off`. Without an API key the chat is off and the site works
-  normally.
+- **Three chat modes:** `live` (a real model through an OpenAI-style Chat Completions API), `demo`
+  (simulated replies, clearly labeled, no model and no cost) and `off`. Without an API key the chat is off and
+  the site works normally.
 - **Abuse and cost guards:** payload and message limits, per-visitor rate limits, per-conversation quotas, an
   estimated token budget, and daily caps per visitor and for the whole site, backed by Upstash Redis or (for
   development) memory. A request that is turned away uses up no quota.
@@ -71,8 +74,11 @@ It is **not RAG and not an agent**:
 - The "related pages" shown under an answer are keyword matches, not retrieval citations.
 - The assistant has no tools and takes no actions. Requests such as "email Jordan for me" or "book a call"
   get a fixed reply that points to the Contact page, without calling the model.
-- Conversations are not stored on the server. The browser keeps the transcript and sends recent turns
-  with each question; the server validates and trims them.
+- The app saves no transcripts. The browser keeps the conversation in memory while the page is open and
+  sends recent turns with each question; the server validates and trims them. In `live` mode the server
+  passes the question, those turns and the prompt to your LLM provider, whose own data policy applies; in
+  `demo` mode nothing is sent to a model. Server logs hold metadata only (lengths, counts, durations, token
+  usage), never message text.
 
 Security does not rely on the prompt alone: nothing secret is ever in the model's context (your content is
 public by design), the model cannot do anything but write text, its output is rendered without HTML, and
@@ -85,7 +91,7 @@ obvious prompt-injection attempts as a first line, not as the main defense.
 |---|---|
 | Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript 5 |
 | Styling | Tailwind CSS 3 with CSS-variable color tokens; Inter via `next/font` |
-| AI | Any OpenAI-compatible Chat Completions API, called with `fetch` (no SDK) |
+| AI | OpenAI-style Chat Completions API (streaming), called with `fetch` (no SDK) |
 | Rate limits | Upstash Redis (`@upstash/ratelimit`), or in-memory for development |
 | Email | Resend REST API (optional) |
 | Analytics | Vercel Web Analytics (optional, off by default) |
@@ -122,8 +128,8 @@ rate limits and quotas → a streamed answer from the model, built from the syst
 
 - Node.js 22 or newer (an LTS release: 22 or 24)
 - pnpm 10 (`corepack enable` installs the version pinned in `package.json`)
-- Optional: an API key for an OpenAI-compatible provider, an [Upstash](https://upstash.com) Redis database
-  and a [Resend](https://resend.com) account
+- Optional: an API key for a provider with an OpenAI-style Chat Completions API, an
+  [Upstash](https://upstash.com) Redis database and a [Resend](https://resend.com) account
 
 ## Quick start
 
@@ -155,16 +161,20 @@ LLM_BASE_URL=https://api.openai.com/v1
 CHAT_MODEL=gpt-4o-mini          # any chat model your provider offers
 ```
 
-Any OpenAI-compatible endpoint works (OpenAI, OpenRouter, a local server, …). Model names and prices change;
-check your provider's current list. Newer OpenAI reasoning models need `CHAT_MAX_TOKENS_PARAM=max_completion_tokens`
-and `CHAT_TEMPERATURE=default`, and a larger `CHAT_MAX_TOKENS`, because their hidden reasoning counts toward it.
+The server sends streaming requests to `{LLM_BASE_URL}/chat/completions` in the OpenAI format, with a bearer
+key. It was developed against OpenAI; other providers and local servers that implement this API (OpenRouter,
+for example) can work, but they differ in models, supported parameters, streaming and usage reporting, so try
+yours before launch. Model names and prices change; check your provider's current list. Newer OpenAI reasoning
+models need `CHAT_MAX_TOKENS_PARAM=max_completion_tokens` and `CHAT_TEMPERATURE=default`, and a larger
+`CHAT_MAX_TOKENS`, because their hidden reasoning counts toward it.
 In development, rate limits use memory; for a public deployment see [Deployment](#deployment).
 
 ## Make it yours
 
-1. Replace the example in `src/content/en/profile.ts` with your own data and set `isExample: false`. Do the
-   same in `src/content/pt-br/profile.ts`, or remove Portuguese if you don't need it. Every field is documented
-   in [docs/customization.md](docs/customization.md).
+1. Replace the example in `src/content/en/profile.ts` with your own data and set `isExample: false` (this
+   removes the demo banner, the footer notice and the `noindex` tag). Do the same in
+   `src/content/pt-br/profile.ts`, or remove Portuguese if you don't need it. Every field is documented in
+   [docs/customization.md](docs/customization.md).
 2. Run `pnpm content:check`. It explains any problem (bad URL, invalid date, missing contact method,
    too many suggested questions, …) and shows how much of the assistant's context budget you use.
 3. Optional: add a logo or photo under `public/`, tweak the light and dark colors in `src/app/globals.css`,
@@ -260,12 +270,13 @@ site with the live chat**:
 - **Whole profile in the prompt instead of RAG.** A portfolio fits easily in the context window. Retrieval
   would add infrastructure and failure modes without improving answers. `pnpm content:check` fails if the
   content outgrows the budget instead of silently truncating it.
-- **Client-managed history.** No conversation is stored on the server, which keeps the backend simple and
-  respects visitors' privacy. The server re-validates and trims every transcript.
+- **Client-managed history.** The server keeps no transcripts, which keeps the backend simple and limits what
+  the site holds about visitors. It re-validates and trims the history it receives. In `live` mode the
+  messages still reach your LLM provider.
 - **Safe by default.** The chat is off without a key, production refuses the live chat without a shared rate
   limit store, the model has no tools, and its Markdown is rendered without HTML.
-- **No SDKs.** The provider and Resend are called with `fetch`, so any OpenAI-compatible endpoint works and
-  the dependency list stays small.
+- **No SDKs.** The provider and Resend are called with `fetch`, so switching to another endpoint with the
+  same API is a configuration change and the dependency list stays small.
 - **Static pages.** Every locale's pages are prerendered, which keeps hosting cheap and fast; only the two API
   routes run on the server.
 

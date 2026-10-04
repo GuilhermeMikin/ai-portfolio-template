@@ -88,7 +88,7 @@ Messages are localized and never contain stack traces, prompts, provider respons
 | Prompt injection by visitors | Nothing secret is in the context; no tools or actions; rules mark content and history as data; a heuristic rejects obvious attempts; history turns that look like injections are dropped |
 | Malicious content in answers | Markdown is parsed into React elements without HTML; on-site links must be real pages or files; external links must appear in the content and open in a new tab |
 | Abuse and cost | Size limits, rate limits, quotas, a token estimate, a daily cap, bounded answers, a provider timeout and abort on disconnect; a provider-side budget is still required |
-| Data exposure | No conversation storage; logs contain lengths, counts, codes, durations and token usage, never text, raw IPs or keys |
+| Data exposure | No transcripts stored by the app (in `live` mode the question and recent turns go to the LLM provider); rate-limit keys use hashed IPs; logs contain lengths, counts, codes, durations and token usage, never text, raw IPs or keys |
 | Contact-form abuse | Size and field limits, email validation, CR/LF removed from the subject, honeypot, per-IP rate limit |
 
 Per-visitor limits identify visitors by IP: the header named in `RATE_LIMIT_IP_HEADER`, otherwise the first

@@ -27,5 +27,10 @@ First public version, extracted from the author's personal portfolio and turned 
 - GitHub Actions CI running every check on Node 22 and 24, on pushes to `main` and on pull requests, with
   Dependabot keeping the actions current; a "Deploy with Vercel" button; CONTRIBUTING.md and SECURITY.md, with a
   checklist for running the public chat endpoint safely. Node.js 22 or newer is required (Node 20 is end-of-life).
-- `pnpm content:check` warns when a real profile still contains the demo's FAQ or instructions about the
-  template author (mikin.ai, "Guilherme (Mikin)", the template repository).
+- `pnpm content:check` warns when a real profile still contains the demo's links, FAQ or instructions about
+  the template author (mikin.ai, the author's LinkedIn, "Guilherme (Mikin)", the template repository).
+- While the example profile is active, a slim banner above the header says the site is an open-source demo
+  with a fictional profile and links to the source code. The example's GitHub, LinkedIn and website links lead
+  to the template and its author, are labelled as such and are left out of the JSON-LD.
+- The chat says what happens to messages in each mode: in `live` mode they go to the configured AI provider,
+  in `demo` mode to no model, and the app saves no transcripts in either.
