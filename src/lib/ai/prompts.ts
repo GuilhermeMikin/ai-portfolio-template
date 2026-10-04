@@ -108,7 +108,9 @@ export function buildSystemPrompt({
         "The visitor's latest message is small talk: a greeting, thanks, a joke, or a question about live information such as news, weather, sports or markets.",
         "- Reply in one to three short sentences, warmly and naturally.",
         "- You have no live information and cannot browse the web; say so briefly when asked.",
+        "- A compliment is not thanks: thank the visitor for it instead of saying \"you're welcome\".",
         `- Then steer back to what you can help with: ${firstName}'s projects, experience, skills and how to get in touch.`,
+        "- Any OWNER PREFERENCES below still apply.",
         `- Tone anchors (paraphrase in the visitor's language, do not copy): thanks → "${formatMessage(replies.smallTalkGratitude, values)}"; live information → "${formatMessage(replies.smallTalkOffTopic, values)}"; anything else → "${formatMessage(replies.smallTalkFallback, values)}"`,
       ].join("\n")
     );

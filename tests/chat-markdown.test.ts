@@ -171,6 +171,50 @@ describe("parseChatMarkdownInline", () => {
   });
 });
 
+describe("bare URLs and email addresses", () => {
+  it("parses them as links, without trailing punctuation or brackets", () => {
+    expect(parseChatMarkdownInline("Code: https://github.com/example. Mail hello@example.com!")).toEqual([
+      text("Code: "),
+      { type: "link", content: "https://github.com/example", href: "https://github.com/example" },
+      text(". Mail "),
+      { type: "link", content: "hello@example.com", href: "mailto:hello@example.com" },
+      text("!"),
+    ]);
+    expect(parseChatMarkdownInline("(see https://github.com/example)")).toEqual([
+      text("(see "),
+      { type: "link", content: "https://github.com/example", href: "https://github.com/example" },
+      text(")"),
+    ]);
+  });
+
+  it("leaves code alone and does not parse a markdown link twice", () => {
+    expect(parseChatMarkdownInline("`https://github.com/example`")).toEqual([
+      { type: "code", content: "https://github.com/example" },
+    ]);
+    expect(parseChatMarkdownInline("[https://github.com/example](https://github.com/example)")).toEqual([
+      { type: "link", content: "https://github.com/example", href: "https://github.com/example" },
+    ]);
+    expect(parseChatMarkdownInline("**https://github.com/example**")).toEqual([
+      {
+        type: "strong",
+        children: [{ type: "link", content: "https://github.com/example", href: "https://github.com/example" }],
+      },
+    ]);
+  });
+
+  it("renders allowed ones as links and everything else as text", () => {
+    const html = render(
+      "Repo: https://github.com/example, mail hello@example.com, other https://unknown.example.net/x and spy@evil.example"
+    );
+    expect(html).toMatch(/<a [^>]*href="https:\/\/github\.com\/example"[^>]*target="_blank"/);
+    expect(html).toContain('href="mailto:hello@example.com"');
+    expect(html).toContain("<span>https://unknown.example.net/x</span>");
+    expect(html).toContain("<span>spy@evil.example</span>");
+    expect(html).not.toContain('href="https://unknown.example.net/x"');
+    expect(html).not.toContain("mailto:spy@evil.example");
+  });
+});
+
 describe("raw HTML", () => {
   it("is parsed as plain text", () => {
     expect(parseChatMarkdown("<script>alert('x')</script>")).toEqual([

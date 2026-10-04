@@ -155,6 +155,7 @@ describe("buildSystemPrompt", () => {
     const { replies } = getContent(locale).messages.chat;
 
     expect(prompt).toContain("SMALL TALK");
+    expect(prompt).toContain("A compliment is not thanks");
     expect(prompt).toContain(formatMessage(replies.smallTalkGratitude, values()));
     expect(prompt).toContain(formatMessage(replies.smallTalkOffTopic, values()));
     expect(prompt).toContain(formatMessage(replies.smallTalkFallback, values()));
