@@ -127,11 +127,12 @@ const SMALL_TALK_PATTERNS: RegExp[] = [
 ];
 
 /**
- * Words that point at the owner's work. When present, a message that also looks like
- * small talk ("Thanks! Is Jordan available?") is treated as a portfolio question.
+ * Words that point at the owner's work or at this website. When present, a message that
+ * also looks like small talk ("Thanks! Is Jordan available?", "Nice site!") is treated as
+ * a portfolio question, so the content (which may say who built the site) can answer it.
  */
 const PORTFOLIO_HINTS =
-  /\b(?:experien\w*|erfahrung\w*|proje[ct]\w*|proyect\w*|projekt\w*|skills?|habilidad\w*|competen\w*|kompetenz\w*|kenntnis\w*|work\w*|worked|trabalh\w*|trabaj\w*|travail\w*|arbeit\w*|jobs?|emprego|empleo|emploi|roles?|cargo|career|carreira|carrera|carriere|karriere|resume|curriculum|curriculo|cv|lebenslauf|educat\w*|educa\w*|formacao|formacion|formation|ausbildung|stud\w*|degree|diploma|universit\w*|certif\w*|zertifi\w*|contact\w*|contat\w*|kontakt\w*|e-?mail|hire|hiring|availab\w*|disponi\w*|verfugbar\w*|freelanc\w*|stack|tech\w*|tecnolog\w*|built|build\w*|clients?|company|companies|empresa|entreprise|unternehmen|portfolio|languages?|idiomas?|langues?|sprachen?|location|based|remote\w*|rates?|salary|pricing)\b/;
+  /\b(?:experien\w*|erfahrung\w*|proje[ct]\w*|proyect\w*|projekt\w*|skills?|habilidad\w*|competen\w*|kompetenz\w*|kenntnis\w*|work\w*|worked|trabalh\w*|trabaj\w*|travail\w*|arbeit\w*|jobs?|emprego|empleo|emploi|roles?|cargo|career|carreira|carrera|carriere|karriere|resume|curriculum|curriculo|cv|lebenslauf|educat\w*|educa\w*|formacao|formacion|formation|ausbildung|stud\w*|degree|diploma|universit\w*|certif\w*|zertifi\w*|contact\w*|contat\w*|kontakt\w*|e-?mail|hire|hiring|availab\w*|disponi\w*|verfugbar\w*|freelanc\w*|stack|tech\w*|tecnolog\w*|built|build\w*|clients?|company|companies|empresa|entreprise|unternehmen|portfolio|sites?|websites?|webseite|sitio|pagina|pages?|languages?|idiomas?|langues?|sprachen?|location|based|remote\w*|rates?|salary|pricing)\b/;
 
 export function isSmallTalk(message: string) {
   const text = normalize(message);

@@ -5,7 +5,8 @@
  * inject markup: `<script>` stays literal text. Supported: paragraphs (single line breaks
  * are kept), `-`/`*`/`+` and numbered lists, **bold**, *italic* / _italic_, `inline code`,
  * fenced code blocks (an unclosed fence, as seen mid-stream, is code so far), `#` headings
- * (rendered as bold paragraphs) and links that pass `resolveChatHref`.
+ * (rendered as bold paragraphs) and links that pass `resolveChatHref`. Bare http(s) URLs and
+ * email addresses are links too, so the ones from the content become clickable.
  *
  * Client-safe. `pnpm eval` (scripts/eval/run.ts) audits the links in model replies with
  * this same parser and `resolveChatHref`, so it flags exactly what the chat would not
@@ -52,12 +53,13 @@ export type ResolvedChatHref = {
 
 /*
  * Inline syntax, in priority order (the earliest match wins; ties go to the first
- * alternative): code, link, bold, *italic*, _italic_. Emphasis must hug its text
- * (`2 * 3 * 4` is not italic) and `_` only counts at word boundaries (snake_case stays).
+ * alternative): code, link, bold, *italic*, _italic_, bare URL, bare email. Emphasis must
+ * hug its text (`2 * 3 * 4` is not italic) and `_` only counts at word boundaries
+ * (snake_case stays). A bare URL stops before brackets, quotes and trailing punctuation.
  */
 // Link targets may contain one level of balanced parentheses (`https://…/Foo_(bar)`).
 const INLINE_PATTERN =
-  /`([^`\n]+)`|\[([^\]\n]+)\]\(((?:[^()\s]|\([^()\s]*\))+)\)|\*\*([^\s*](?:[^\n]*?[^\s*])?)\*\*|\*([^\s*](?:[^*\n]*?[^\s*])?)\*|(^|[^\w])_([^\s_](?:[^_\n]*?[^\s_])?)_(?!\w)/g;
+  /`([^`\n]+)`|\[([^\]\n]+)\]\(((?:[^()\s]|\([^()\s]*\))+)\)|\*\*([^\s*](?:[^\n]*?[^\s*])?)\*\*|\*([^\s*](?:[^*\n]*?[^\s*])?)\*|(^|[^\w])_([^\s_](?:[^_\n]*?[^\s_])?)_(?!\w)|(https?:\/\/[^\s<>()[\]{}"'`*]*[^\s<>()[\]{}"'`*.,;:!?])|([\w.+-]+@[\w-]+(?:\.[\w-]+)*\.[A-Za-z]{2,})(?![\w-])/g;
 
 const FENCE_OPEN_PATTERN = /^(\s*)(`{3,}|~{3,})(.*)$/;
 const FENCE_CLOSE_PATTERN = /^\s*(`{3,}|~{3,})\s*$/;
@@ -207,8 +209,18 @@ export function parseChatMarkdownInline(input: string): ChatMarkdownInlineToken[
   let lastIndex = 0;
 
   for (const match of input.matchAll(INLINE_PATTERN)) {
-    const [fullMatch, code, linkLabel, linkHref, strong, starEm, underscorePrefix, underscoreEm] =
-      match;
+    const [
+      fullMatch,
+      code,
+      linkLabel,
+      linkHref,
+      strong,
+      starEm,
+      underscorePrefix,
+      underscoreEm,
+      bareUrl,
+      bareEmail,
+    ] = match;
     const matchIndex = match.index ?? 0;
     pushText(tokens, input.slice(lastIndex, matchIndex));
     lastIndex = matchIndex + fullMatch.length;
@@ -229,6 +241,14 @@ export function parseChatMarkdownInline(input: string): ChatMarkdownInlineToken[
     } else if (underscoreEm !== undefined) {
       pushText(tokens, underscorePrefix ?? "");
       tokens.push({ type: "em", children: parseChatMarkdownInline(underscoreEm) });
+    } else if (bareUrl !== undefined) {
+      if (isSafeMarkdownHref(bareUrl)) {
+        tokens.push({ type: "link", content: bareUrl, href: bareUrl });
+      } else {
+        pushText(tokens, bareUrl);
+      }
+    } else if (bareEmail !== undefined) {
+      tokens.push({ type: "link", content: bareEmail, href: `mailto:${bareEmail}` });
     }
   }
 

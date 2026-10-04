@@ -310,8 +310,9 @@ const trimPunctuation = (url: string) => url.replace(/[.,;:!?]+$/, "");
 
 /**
  * Links in an answer that the chat would not render as links, found with the same parser
- * and guard as the UI (code is skipped, as it is never linked). Bare URLs in the text are
- * checked against the same allow-list: they are not clickable, but must not be invented.
+ * and guard as the UI (code is skipped, as it is never linked). The parser turns bare
+ * http(s) URLs and email addresses into links, so they get the same check; `www.` addresses
+ * and URLs inside link labels are checked against the same allow-list: they must not be invented.
  */
 function auditLinks(text: string, locale: Locale): string[] {
   const profile = getProfile(locale);

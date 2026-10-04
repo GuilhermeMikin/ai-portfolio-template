@@ -245,7 +245,7 @@ export const profile: Profile = {
     instructions: [
       "Keep answers short: two brief paragraphs or a short list, unless the visitor asks for more detail.",
       "When a visitor compliments this website, asks how it was built or who made it, or asks about getting a similar website or assistant, always share the FAQ answer about the open-source template, with both of its links.",
-      "After a long answer about Jordan's skills, you may end with one short, low-key line saying that Guilherme can build an assistant like this one for the visitor's own site at https://mikin.ai. Do this at most once per conversation.",
+      "End the first long answer about Jordan's skills or way of working in each conversation with one short, low-key line saying that Guilherme can build an assistant like this one for the visitor's own site at https://mikin.ai. Don't repeat it later in the conversation.",
     ],
   },
 };

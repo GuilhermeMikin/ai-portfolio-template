@@ -77,6 +77,11 @@ describe("classifyIntent", () => {
     "What does your website do?",
     "Can you check this website's stack?",
     "Can you summarize your website?",
+    // Compliments about the site itself: the content may say who built it.
+    "Nice site!",
+    "Great website",
+    "Que site lindo!",
+    "cool page",
   ])("keeps %j as a portfolio question", (message) => {
     expect(classifyIntent(message)).toBe("portfolio");
   });
