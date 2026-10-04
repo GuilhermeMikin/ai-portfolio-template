@@ -585,6 +585,33 @@ export function validateProfile(profile: Profile, options: ValidateOptions = {})
   return issues;
 }
 
+/**
+ * Every locale must agree on `isExample` (missing counts as false). A fork that marks one
+ * language as real content but keeps the bundled example in another would send that
+ * language's visitors, who are redirected by browser language, to the example profile.
+ */
+export function validateExampleFlags(
+  profilesByLocale: Record<string, Pick<Profile, "isExample">>
+): ContentIssue[] {
+  const locales = Object.keys(profilesByLocale);
+  const realLocales = locales.filter((locale) => !profilesByLocale[locale].isExample);
+  if (realLocales.length === 0 || realLocales.length === locales.length) {
+    return [];
+  }
+
+  const real = realLocales.join(", ");
+  return locales
+    .filter((locale) => profilesByLocale[locale].isExample)
+    .map((locale) => ({
+      level: "error" as const,
+      path: `${locale}: isExample`,
+      message:
+        `src/content/${locale}/profile.ts still holds the example profile while ${real} ` +
+        `${realLocales.length === 1 ? "is" : "are"} marked as real content (isExample: false). ` +
+        "Translate your content into it, or remove the locale (docs/customization.md#languages)",
+    }));
+}
+
 /* -------------------------------------------------------------------------- */
 /* Message dictionaries                                                         */
 /* -------------------------------------------------------------------------- */

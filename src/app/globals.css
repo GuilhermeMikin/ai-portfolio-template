@@ -24,9 +24,10 @@
   --color-scrim: 31 35 40; /* dims the page behind the chat panel */
   --shadow-color: 16 24 40; /* card and popover shadows */
 
-  /* Native controls and scrollbars follow the theme; declaring both themes also keeps
-     Chromium's "auto dark" recoloring off. */
-  color-scheme: light;
+  /* `only light` keeps Chromium's "auto dark" recoloring (e.g. Chrome on Android's
+     "Auto-darken web contents") off the light theme; this property on the root overrides the
+     `<meta name="color-scheme">` tag. The dark theme below switches it to `dark`. */
+  color-scheme: only light;
 }
 
 /*

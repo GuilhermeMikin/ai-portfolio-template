@@ -445,13 +445,14 @@ const STOPWORDS = new Set(
 /**
  * Extra words that point at a section, in English and then Portuguese (accent-free), for
  * the bundled locales; section labels from the message files cover any other language.
- * They are stemmed like everything else.
+ * They are stemmed like everything else, and the stemmer only drops a final "s", so
+ * Portuguese plurals that change the ending (-ções, -ns) are listed as well.
  */
 const SECTION_KEYWORDS: Partial<Record<ContextSectionId, string[]>> = {
   focus: ["focus", "specialty", "specialize", "strength", "expertise", "foco", "especialidade", "forte"],
   skills: [
     "skill", "technology", "tech", "tool", "stack", "framework", "language", "programming",
-    "habilidade", "tecnologia", "ferramenta", "linguagem", "programacao", "sabe",
+    "habilidade", "tecnologia", "ferramenta", "linguagem", "linguagens", "programacao", "sabe",
   ],
   experience: [
     "experience", "job", "role", "career", "worked", "employer", "company",
@@ -463,9 +464,12 @@ const SECTION_KEYWORDS: Partial<Record<ContextSectionId, string[]>> = {
   ],
   education: [
     "education", "degree", "study", "studied", "university", "college", "school",
-    "formacao", "graduacao", "faculdade", "estudou", "universidade", "diploma",
+    "formacao", "formacoes", "graduacao", "graduacoes", "faculdade", "estudou", "universidade", "diploma",
   ],
-  certifications: ["certification", "certificate", "certified", "course", "certificacao", "certificado", "curso"],
+  certifications: [
+    "certification", "certificate", "certified", "course",
+    "certificacao", "certificacoes", "certificado", "curso",
+  ],
   languages: ["language", "speak", "speaks", "spoken", "fluent", "idioma", "lingua", "fala", "fluente"],
   interests: ["hobby", "interest", "fun", "free", "outside", "personal", "interesse", "lazer", "livre", "pessoal"],
   contact: [

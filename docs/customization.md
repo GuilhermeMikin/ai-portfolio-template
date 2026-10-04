@@ -144,8 +144,10 @@ The header has a sun/moon button that switches between the light and dark themes
 - Printing always uses the light theme. The Open Graph image, icons and web manifest are light too.
 
 **A light-only site:** remove `<ThemeToggle …/>` from `src/shared/components/Header/index.tsx` and the
-`:root[data-theme="dark"]` block from `src/app/globals.css`, then set `colorScheme: "only light"` and a single
-`themeColor` in `src/app/layout.tsx`.
+`@media screen { :root[data-theme="dark"] … }` block from `src/app/globals.css`. Keep `color-scheme: only light`
+in `:root`: it stops browsers' automatic dark mode from recoloring the page. Then set `colorScheme: "only light"`
+and a single `themeColor: THEME_COLORS.light` in `src/app/layout.tsx`, and drop the dark-theme assertions in
+`tests/seo-brand-colors.test.ts`. The inline theme script can stay: without dark tokens it changes nothing.
 
 ## Languages
 
@@ -162,6 +164,10 @@ How visitors get their language:
   language. The 404 page picks its language the same way.
 - The language switcher in the header saves the choice in a cookie (`site_locale`, kept for a year).
 - The assistant answers in the language of each question, whatever the page's language.
+
+Every language needs your real content: `pnpm content:check` (and so `pnpm build`) fails while one profile is
+marked as real (`isExample: false`) and another still holds the example, because visitors with that browser
+language would land on the example profile.
 
 **Keeping one language:** remove the other code from `SUPPORTED_LOCALES` and `LOCALE_LABELS` in
 `src/shared/config/site.ts`, delete its folder in `src/content/` and its entry in `contentByLocale`

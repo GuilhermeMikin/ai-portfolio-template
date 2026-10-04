@@ -35,7 +35,7 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
    plausible guesses: the assistant will repeat whatever the content says to every visitor.
 2. **Write `src/content/en/profile.ts`,** then the same facts in `src/content/pt-br/profile.ts` (a faithful
    translation, never new claims), or remove Portuguese if the owner doesn't want it ("Languages" in
-   `docs/customization.md`). Follow the types in `src/content/schema.ts` and the field guide in
+   `docs/customization.md`). `pnpm content:check` fails while the locales disagree on `isExample`. Follow the types in `src/content/schema.ts` and the field guide in
    `docs/customization.md`.
    - Dates are `"YYYY"` or `"YYYY-MM"`; omit `end` for current roles.
    - `id`s are lowercase slugs and must be unique.

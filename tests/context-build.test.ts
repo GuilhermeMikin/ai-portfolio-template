@@ -153,6 +153,21 @@ describe("related pages", () => {
     }
   });
 
+  it("matches Portuguese questions, including plurals that change the ending (-ções, -ns)", () => {
+    for (const pageLocale of ["pt-br", "en"] as const) {
+      for (const [question, section] of [
+        ["Quais linguagens Robin usa?", "skills"],
+        ["Quais formações Robin tem?", "education"],
+        ["Robin tem graduações?", "education"],
+        ["Robin tem certificações?", "certifications"],
+        ["Que certificação Robin tem?", "certifications"],
+      ] as const) {
+        const { sources } = buildPortfolioContext(pageLocale, question);
+        expect(sources[0]?.section, `${pageLocale}: ${question}`).toBe(section);
+      }
+    }
+  });
+
   it("returns nothing for a message without content words", () => {
     expect(buildPortfolioContext(locale, "Hello!").sources).toEqual([]);
   });

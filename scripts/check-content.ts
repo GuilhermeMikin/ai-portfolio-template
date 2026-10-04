@@ -4,6 +4,9 @@
  *
  *   pnpm content:check        (also the first step of `pnpm build`)
  *
+ * Across locales it fails when some profiles are marked as real content (`isExample: false`)
+ * while others still hold the bundled example (validateExampleFlags()).
+ *
  * For each locale in SUPPORTED_LOCALES it:
  *   - validates the profile with validateProfile(): required fields, links, dates, ids,
  *     suggested questions and the files it references under public/;
@@ -76,7 +79,7 @@ async function main(): Promise<number> {
   // Loaded here rather than at the top so that content that fails to load is reported
   // as a crash (exit 2) instead of looking like a validation failure.
   const { contentByLocale } = await import("@/content");
-  const { validateMessages, validateProfile } = await import("@/content/schema");
+  const { validateExampleFlags, validateMessages, validateProfile } = await import("@/content/schema");
   const { measurePortfolioContext } = await import("@/lib/ai/context-build");
   const { CHAT_MESSAGE_MAX_LENGTH } = await import("@/lib/ai/types");
   const { DEFAULT_LOCALE, SUPPORTED_LOCALES } = await import("@/shared/config/site");
@@ -167,6 +170,17 @@ async function main(): Promise<number> {
     for (const issue of warnings) console.log(`  ! warning  ${issue.path}: ${issue.message}`);
     if (issues.length === 0) console.log("  ✓ no problems found");
     for (const note of notes) console.log(`  · ${note}`);
+  }
+
+  const crossLocaleIssues = validateExampleFlags(
+    Object.fromEntries(
+      SUPPORTED_LOCALES.flatMap((locale) => (contentByLocale[locale] ? [[locale, contentByLocale[locale].profile]] : []))
+    )
+  );
+  if (crossLocaleIssues.length > 0) {
+    errorCount += crossLocaleIssues.length;
+    console.log("\nall locales");
+    for (const issue of crossLocaleIssues) console.log(`  ✗ error    ${issue.path}: ${issue.message}`);
   }
 
   console.log("");
