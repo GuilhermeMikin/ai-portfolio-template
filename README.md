@@ -179,6 +179,9 @@ In development, rate limits use memory; for a public deployment see [Deployment]
    too many suggested questions, …) and shows how much of the assistant's context budget you use.
 3. Optional: add a logo or photo under `public/`, tweak the light and dark colors in `src/app/globals.css`,
    adjust UI text in `messages.json` and `chat.json`, or add a language.
+4. Publishing your copy on GitHub? `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md` and the issue and
+   pull request templates in `.github/` describe this template's project and its maintainer. Adapt or delete
+   them.
 
 **Using an AI coding assistant?** Point it at [AGENTS.md](AGENTS.md). It contains the setup playbook, the
 rules (never invent facts about you, keep secrets out of content) and the checks to run. A prompt such as
@@ -282,9 +285,10 @@ site with the live chat**:
 
 ## Contributing and security
 
-Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Please report vulnerabilities privately as
-described in [SECURITY.md](SECURITY.md), which also lists what to configure before you expose the public chat
-endpoint with a live model.
+Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Everyone taking part follows the
+[Code of Conduct](CODE_OF_CONDUCT.md). Please report vulnerabilities privately as described in
+[SECURITY.md](SECURITY.md), which also lists what to configure before you expose the public chat endpoint with
+a live model.
 
 ## Need help customizing it?
 

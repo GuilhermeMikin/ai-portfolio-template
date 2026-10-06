@@ -1,0 +1,71 @@
+name: Bug report
+description: Something in the template doesn't work as documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Security problems must not go here: report them privately as described
+        in [SECURITY.md](https://github.com/GuilhermeMikin/ai-portfolio-template/blob/main/SECURITY.md).
+        Please don't paste API keys, tokens or private data.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A short description of the problem, with error messages or screenshots if you have them.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `CHAT_MODE=demo pnpm dev`
+        2. Open http://localhost:3000/en/projects
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit or version
+      description: The output of `git rev-parse --short HEAD`, or the release you started from.
+      placeholder: "a1b2c3d or v1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: chat-mode
+    attributes:
+      label: Chat mode
+      options:
+        - live
+        - demo
+        - "off"
+        - Not related to the chat
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node.js version
+      description: The output of `node -v`.
+      placeholder: v22.x
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      description: For visual or interaction problems.
+      placeholder: Chrome 140 on Android, Safari on iPhone, Firefox on desktop…
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else?
+      description: Where it runs (local, Vercel, another host), the LLM provider and model, related configuration.

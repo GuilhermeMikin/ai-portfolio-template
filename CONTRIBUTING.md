@@ -1,12 +1,12 @@
 # Contributing
 
 Thanks for helping improve the AI Portfolio Template. Bug reports, documentation fixes, translations and focused
-improvements are all welcome.
+improvements are all welcome. Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Before you start
 
 - **Open an issue first** for anything larger than a small fix, so we can agree on the approach before you
-  spend time on it.
+  spend time on it. The bug report and feature request forms ask for what we need.
 - **Keep the scope.** This is a one-owner portfolio with an optional assistant that answers from the site's
   content. Proposals for databases, CMSs, authentication, retrieval (RAG), agents with tools or new paid
   services are usually out of scope. The README's "Technical decisions" section explains why.
@@ -59,7 +59,8 @@ The rules in [AGENTS.md](AGENTS.md) apply to people as well as AI assistants. Th
 
 ## Pull requests
 
-- One topic per pull request, with a short description of what changed and why.
+- One topic per pull request, with a short description of what changed and why. The pull request template
+  walks through these points.
 - Say how you tested it. For UI changes, add screenshots in both themes.
 - Update the docs (README, `docs/`, AGENTS.md) and `CHANGELOG.md` when behavior or configuration changes.
 
