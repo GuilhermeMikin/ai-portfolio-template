@@ -1,6 +1,6 @@
 {
   "name": "ai-portfolio-template",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "A configurable personal portfolio built with Next.js, with an optional AI assistant that answers visitors' questions from the site content.",
   "license": "MIT",
