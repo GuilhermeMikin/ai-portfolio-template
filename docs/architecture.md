@@ -18,7 +18,7 @@ Static pages (/en, /en/about, …)  ◄────── prerendered at build t
                                                 ► reply:
                                                     action_request → fixed reply, no model call
                                                     demo mode      → simulated reply, no model call
-                                                    otherwise      → OpenAI-compatible stream
+                                                    otherwise      → Chat Completions stream (LLM)
                                                 ◄ SSE: start → chunk* → sources? → done
   Contact form ─────────── POST /api/contact ─► size/JSON checks → honeypot → rate limit → Resend
 ```

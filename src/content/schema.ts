@@ -224,9 +224,10 @@ const PLACEHOLDER_PATTERN = /\b(TODO|TBD|FIXME|lorem ipsum)\b|\byour name\b/i;
  * assistant instructions about the template and its author (repository URL, mikin.ai, the
  * author's LinkedIn profile, "Guilherme (Mikin)", and the instruction to share "the FAQ
  * answer about the open-source template", in English and Portuguese), which would otherwise
- * advertise the author on someone else's site. The phrases are narrow on purpose: the
- * author's first name alone or "open-source template" would flag owners who are called
- * Guilherme or maintain one.
+ * advertise the author on someone else's site. The example links' labels ("Template author
+ * on LinkedIn", …) are matched too: a fork that only swaps the URLs would mislabel the
+ * owner's own profiles. The phrases are narrow on purpose: the author's first name alone or
+ * "open-source template" would flag owners who are called Guilherme or maintain one.
  */
 const EXAMPLE_LEFTOVER_PATTERN = new RegExp(
   [
@@ -236,6 +237,8 @@ const EXAMPLE_LEFTOVER_PATTERN = new RegExp(
     String.raw`github\.com\/GuilhermeMikin\/ai-portfolio-template\b`,
     String.raw`\bmikin\.ai\b`,
     String.raw`linkedin\.com\/in\/guilhermebl(?![\w-])`,
+    String.raw`\bTemplate (?:source|author) on (?:GitHub|LinkedIn)\b`,
+    String.raw`\b(?:C[oó]digo|Autor) do template no (?:GitHub|LinkedIn)\b`,
     String.raw`\bGuilherme \(Mikin\)`,
     String.raw`\bFAQ answer about the open-source template\b`,
     String.raw`\bresposta do FAQ sobre o template open source\b`,
