@@ -104,9 +104,12 @@ of requests, not their price.
 
 ### LLM provider
 
-Any OpenAI-compatible Chat Completions endpoint: set `LLM_BASE_URL`, `LLM_API_KEY` and `CHAT_MODEL`. For
-OpenRouter, `OPENROUTER_HTTP_REFERER` and `OPENROUTER_X_TITLE` are optional attribution headers. Model
-availability and prices change; pick a model from your provider's current list.
+An endpoint that implements the OpenAI Chat Completions API with streaming (`{LLM_BASE_URL}/chat/completions`,
+bearer key): set `LLM_BASE_URL`, `LLM_API_KEY` and `CHAT_MODEL`. The template was developed against OpenAI.
+Other providers and local servers can work but differ in models, accepted parameters, streaming and usage
+reporting, so try yours before launch. For OpenRouter, `OPENROUTER_HTTP_REFERER` and `OPENROUTER_X_TITLE` are
+optional attribution headers. Model availability and prices change; pick a model from your provider's current
+list.
 
 Newer OpenAI reasoning models reject `max_tokens` and custom temperatures: set
 `CHAT_MAX_TOKENS_PARAM=max_completion_tokens`, `CHAT_TEMPERATURE=default` and a larger `CHAT_MAX_TOKENS` (their
@@ -139,5 +142,9 @@ report a vulnerability.
   dynamic (see the Next.js CSP guide). If you add a third-party script, font, image host or API, add its
   origin to the matching directive.
 - Logs are structured JSON without message text, prompts, provider bodies, raw IPs or keys.
+- **Visitor privacy:** the app keeps no chat transcripts; rate-limit counters use hashed IPs. In `live` mode each
+  question, the recent turns and your content go to your LLM provider, whose data-retention terms apply; in
+  `demo` mode nothing is sent to a model. Your host may keep its own request logs. Mention the provider in your
+  privacy notice if you publish one.
 - The assistant has no tools, its output is rendered without HTML, and its links are limited to your pages and
   the URLs in your content.

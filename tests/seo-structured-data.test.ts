@@ -83,6 +83,7 @@ describe("buildStructuredData", () => {
   it("lists only https social links in sameAs", () => {
     const { person } = graphOf(
       cloneProfile((profile) => {
+        profile.isExample = false;
         profile.contact.social = [
           { platform: "github", label: "GitHub", href: "https://example.com/code" },
           { platform: "website", label: "Old site", href: "http://example.com/old" },
@@ -92,6 +93,17 @@ describe("buildStructuredData", () => {
     );
 
     expect(person.sameAs).toEqual(["https://example.com/code"]);
+  });
+
+  it("omits sameAs for the example profile, whose links are not the fictional person's", () => {
+    const { person } = graphOf(
+      cloneProfile((profile) => {
+        profile.isExample = true;
+        profile.contact.social = [{ platform: "github", label: "Template source", href: "https://example.com/code" }];
+      })
+    );
+
+    expect(person).not.toHaveProperty("sameAs");
   });
 
   it("omits sameAs, image and knowsAbout when there is nothing to list", () => {

@@ -35,6 +35,9 @@ function resolveSiteUrl() {
 /** Absolute origin used for canonical URLs, Open Graph, the sitemap and JSON-LD. */
 export const SITE_URL = resolveSiteUrl();
 
+/** This template's source code, linked from the demo banner while `profile.isExample` is true. */
+export const TEMPLATE_REPOSITORY_URL = "https://github.com/GuilhermeMikin/ai-portfolio-template";
+
 /**
  * URL segment of every supported locale (`/en/about`): lowercase, e.g. `"pt-br"`.
  * The first one is the default locale.

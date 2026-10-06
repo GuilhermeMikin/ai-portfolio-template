@@ -76,7 +76,7 @@ export function HomeAssistant({ suggestedQuestions }: HomeAssistantProps) {
         ) : null}
       </div>
       <p className="mt-1.5 text-sm leading-6 text-muted">{copy.home.description}</p>
-      {mode === "demo" ? <p className="mt-2 text-xs leading-5 text-muted">{copy.demoNotice}</p> : null}
+      <p className="mt-2 text-xs leading-5 text-muted">{mode === "demo" ? copy.demoNotice : copy.privacyNotice}</p>
 
       <form onSubmit={handleSubmit} className="mt-4 flex items-center gap-2">
         <label htmlFor={inputId} className="sr-only">

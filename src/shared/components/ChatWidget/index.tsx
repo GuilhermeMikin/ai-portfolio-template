@@ -939,6 +939,7 @@ export function ChatWidgetRoot({
                   <p className="mt-3 rounded-xl bg-subtle px-3 py-2 text-xs leading-5 text-ink">{copy.demoNotice}</p>
                 ) : null}
                 <p className="mt-3 text-xs leading-5 text-muted">{formatMessage(copy.disclaimer, messageValues)}</p>
+                {mode === "live" ? <p className="mt-1.5 text-xs leading-5 text-muted">{copy.privacyNotice}</p> : null}
               </div>
 
               <div role="log" aria-live="polite" aria-busy={isStreaming} className="mt-4 flex flex-col gap-4">

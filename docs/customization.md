@@ -18,8 +18,9 @@ budget your content uses.
 
 ### `isExample`
 
-`true` while the bundled example is in place: the footer shows an "example profile" notice and pages are
-marked `noindex`. Set it to `false` (or delete it) when the content is yours.
+`true` while the bundled example is in place: a banner at the top says the site is an open-source demo with a
+fictional profile and links to the template's repository, the footer shows an "example profile" notice and
+pages are marked `noindex`. Set it to `false` (or delete it) when the content is yours; all three go away.
 
 ### `person`
 
@@ -85,8 +86,8 @@ Empty or missing sections are not rendered.
 ### `contact`
 
 - `email` (optional): the bare address (`you@example.com`); the site adds `mailto:` itself.
-- `availability`, `responseTime` (optional): shown on the Contact page. The assistant repeats your
-  availability as written and never goes beyond it.
+- `availability`, `responseTime` (optional): shown on the Contact page. The assistant is instructed to
+  repeat your availability as written and not to go beyond it.
 - `social`: a list of `{ platform, label, href }`. `platform` picks the icon: `github`, `gitlab`, `linkedin`,
   `x`, `bluesky`, `mastodon`, `youtube`, `dribbble`, `behance`, `medium`, `whatsapp` (e.g.
   `https://wa.me/<number>`), `website` or `other`.
@@ -114,11 +115,13 @@ their own descriptions from `meta.descriptions` in `messages.json`.
 | `name` | How the assistant introduces itself, e.g. "Jordan's AI assistant" |
 | `suggestedQuestions` | Up to three questions on the home page. Each must be answerable from your content |
 | `faq` | Extra `{ question, answer }` pairs: rates policy, relocation, notice period, … Public, like everything else |
-| `instructions` | Optional preferences on tone, length or what to bring up ("Keep answers under 120 words"). Facts still come only from your content, and they cannot override the built-in rules |
+| `instructions` | Optional preferences on tone, length or what to bring up ("Keep answers under 120 words"). They don't add facts and cannot override the built-in rules |
 
 The built-in rules live in `src/lib/ai/prompts.ts`: answer only from your content, say when the information
-isn't there, never invent facts, never commit or act on your behalf, treat visitor text as data, answer in the
-visitor's language and link only to your own pages or URLs from your content.
+isn't there, never invent facts, never commit or act on your behalf, treat visitor text as data and answer in
+the visitor's language. A model follows such rules most of the time, not always, so try your assistant before
+launch (`pnpm eval`). What the code enforces regardless of the model: the assistant has no tools, and the chat
+renders only links to your own pages or URLs from your content.
 
 ## Text, colors and fonts
 

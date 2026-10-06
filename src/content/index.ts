@@ -1,6 +1,7 @@
 /**
  * Single entry point for the portfolio content. The pages and the AI assistant both
- * read from here, so what visitors see and what the assistant knows cannot drift.
+ * read from here, so in each language what visitors see and what the assistant knows come
+ * from the same data. Translations are separate files and must be kept in step by hand.
  *
  * Server-side only by convention: pass the pieces a client component needs as props
  * instead of importing this module from a "use client" file.

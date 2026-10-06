@@ -20,10 +20,11 @@
   "disclaimer": "Respostas de IA podem conter erros. Confira as páginas indicadas ou fale diretamente com {firstName}.",
   "sourcesLabel": "Páginas relacionadas",
   "demoBadge": "Demo",
-  "demoNotice": "Modo demo: as respostas são simuladas a partir do conteúdo do site. Nenhum modelo de IA está conectado.",
+  "demoNotice": "Modo demo: as respostas são simuladas a partir do conteúdo do site. Suas mensagens não são enviadas a um modelo de IA, e este site não salva as conversas.",
+  "privacyNotice": "Para responder, suas perguntas e o histórico recente da conversa são enviados a um provedor de IA. Este site não salva as conversas.",
   "home": {
     "title": "Pergunte ao assistente de IA de {firstName}",
-    "description": "Respostas rápidas sobre projetos, habilidades e experiência. O assistente responde só com base no conteúdo deste site, e as conversas não são armazenadas.",
+    "description": "Respostas rápidas sobre projetos, habilidades e experiência, com base no conteúdo deste site.",
     "inputLabel": "Faça uma pergunta sobre {firstName}",
     "placeholder": "Pergunte sobre {firstName}…",
     "suggestionsLabel": "Perguntas sugeridas",

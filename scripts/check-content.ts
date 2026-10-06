@@ -154,8 +154,8 @@ async function main(): Promise<number> {
       if (content.profile.isExample) {
         notes.push(
           `hint     src/content/${locale}/profile.ts still holds the example profile (${content.profile.person.name}). ` +
-            "Replace it with your own content and set isExample: false. Until then the site shows an " +
-            "example notice and asks search engines not to index it."
+            "Replace it with your own content and set isExample: false. Until then the site shows a " +
+            "demo banner and an example notice, and asks search engines not to index it."
         );
       }
     }

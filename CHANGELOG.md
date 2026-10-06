@@ -2,9 +2,12 @@
 
 All notable changes to this template are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
-[Semantic Versioning](https://semver.org/).
+[Semantic Versioning](https://semver.org/). The public interface is the content schema
+(`src/content/schema.ts`) and the environment variables: a breaking change to either means a new major version.
 
-## [0.1.0] - Unreleased
+## [Unreleased]
+
+## [1.0.0] - 2026-10-05
 
 First public version, extracted from the author's personal portfolio and turned into a reusable template.
 
@@ -27,5 +30,16 @@ First public version, extracted from the author's personal portfolio and turned 
 - GitHub Actions CI running every check on Node 22 and 24, on pushes to `main` and on pull requests, with
   Dependabot keeping the actions current; a "Deploy with Vercel" button; CONTRIBUTING.md and SECURITY.md, with a
   checklist for running the public chat endpoint safely. Node.js 22 or newer is required (Node 20 is end-of-life).
-- `pnpm content:check` warns when a real profile still contains the demo's FAQ or instructions about the
-  template author (mikin.ai, "Guilherme (Mikin)", the template repository).
+- `pnpm content:check` warns when a real profile still contains the demo's links, their labels, the FAQ or
+  instructions about the template author (mikin.ai, the author's LinkedIn, "Guilherme (Mikin)", the template
+  repository).
+- While the example profile is active, a slim banner above the header says the site is an open-source demo
+  with a fictional profile and links to the source code. The example's GitHub, LinkedIn and website links lead
+  to the template and its author, are labelled as such and are left out of the JSON-LD.
+- The chat says what happens to messages in each mode: in `live` mode they go to the configured AI provider,
+  in `demo` mode to no model, and the app saves no transcripts in either.
+- Issue forms for bug reports and feature requests, a pull request template and a Code of Conduct
+  (Contributor Covenant 2.1).
+
+[Unreleased]: https://github.com/GuilhermeMikin/ai-portfolio-template/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/GuilhermeMikin/ai-portfolio-template/releases/tag/v1.0.0

@@ -9,6 +9,11 @@
       "contact": "How to contact {name}, current availability and response time."
     }
   },
+  "demoBanner": {
+    "label": "About this demo",
+    "text": "Open-source portfolio demo · Fictional profile",
+    "cta": "View source on GitHub"
+  },
   "nav": {
     "label": "Main",
     "home": "Home",

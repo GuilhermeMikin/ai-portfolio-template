@@ -41,9 +41,10 @@ export function buildStructuredData(locale: Locale, profile: Profile = getProfil
   const { person } = profile;
   const personId = `${SITE_URL}/#person`;
   const image = person.photo ? toAbsoluteUrl(person.photo.src) : undefined;
-  const sameAs = profile.contact.social
-    .map((link) => link.href)
-    .filter((href) => parseUrl(href)?.protocol === "https:");
+  // A fictional example person has no real profiles, and the example's links belong to the template.
+  const sameAs = profile.isExample
+    ? []
+    : profile.contact.social.map((link) => link.href).filter((href) => parseUrl(href)?.protocol === "https:");
   const knowsAbout = [...new Set(profile.skills.flatMap((group) => group.items))].slice(
     0,
     MAX_KNOWS_ABOUT

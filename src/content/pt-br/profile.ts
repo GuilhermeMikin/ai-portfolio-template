@@ -8,16 +8,16 @@ import type { Profile } from "../schema";
  * must match; only the wording changes. Jordan's gender is unspecified, so the
  * Portuguese text avoids gendered words for Jordan.
  *
- * Every employer, project, school, certification and link below is invented to
- * demonstrate the template. The email uses the reserved `example.com` domain, the GitHub
- * and LinkedIn links point to those sites' home pages (not to anyone's profile), and the
- * website link points to the template author's own site. The FAQ entry about this website
- * and the matching assistant instructions promote the template on its public demo.
+ * Every employer, project, school and certification below is invented to demonstrate the
+ * template, and the email uses the reserved `example.com` domain. The social links are not
+ * Jordan's: they point to the template's source code and to its author's LinkedIn profile and
+ * website, labelled as such. The FAQ entries about this website and the matching assistant
+ * instructions promote the template on its public demo.
  * Replace this file with your own information (docs/customization.md walks through
  * each field) and set `isExample: false`.
  *
- * The site renders this file and the AI assistant answers only from it, so keep it
- * accurate and public: anything written here can be repeated to visitors.
+ * The site renders this file and the AI assistant is instructed to answer only from it, so
+ * keep it accurate and public: anything written here can be repeated to visitors.
  */
 export const profile: Profile = {
   isExample: true,
@@ -194,8 +194,16 @@ export const profile: Profile = {
       "Disponível para vagas de nível sênior em engenharia de produto e para um número limitado de projetos freelance a partir de janeiro de 2027.",
     responseTime: "Costuma responder em até dois dias úteis.",
     social: [
-      { platform: "github", label: "GitHub", href: "https://github.com" },
-      { platform: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com" },
+      {
+        platform: "github",
+        label: "Código do template no GitHub",
+        href: "https://github.com/GuilhermeMikin/ai-portfolio-template",
+      },
+      {
+        platform: "linkedin",
+        label: "Autor do template no LinkedIn",
+        href: "https://www.linkedin.com/in/guilhermebl/",
+      },
       { platform: "website", label: "mikin.ai", href: "https://mikin.ai" },
     ],
   },
@@ -221,7 +229,7 @@ export const profile: Profile = {
       {
         question: "Jordan Rivera é uma pessoa real?",
         answer:
-          "Não. Jordan Rivera é um perfil de exemplo fictício, usado para demonstrar este template de portfólio. As empresas, os projetos e os dados de contato são apenas ilustrativos.",
+          "Não. Jordan Rivera é um perfil de exemplo fictício, usado para demonstrar este template de portfólio. As empresas e os projetos são inventados, e o e-mail é apenas ilustrativo. Os links de GitHub, LinkedIn e site não são de Jordan: levam ao código do template e ao autor dele, Guilherme.",
       },
       {
         question: "Quem fez este site? Posso ter um igual?",

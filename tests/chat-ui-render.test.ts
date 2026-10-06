@@ -89,6 +89,7 @@ describe("chat UI on first render", () => {
     const html = renderPage("demo", ["One?", "Two?", "Three?", "Four?"]);
     expect(html).toContain(`>${escapeHtml(copy.demoBadge)}</span>`);
     expect(html).toContain(escapeHtml(copy.demoNotice));
+    expect(html).not.toContain(escapeHtml(copy.privacyNotice));
     expect(html).toContain("Ask Alex&#x27;s AI assistant");
     expect(html).toContain(`placeholder="${escapeHtml(formatMessage(copy.home.placeholder, { firstName: "Alex" }))}"`);
     expect(html).toContain('maxLength="500"');
@@ -96,9 +97,10 @@ describe("chat UI on first render", () => {
     expect(html).not.toContain("Four?");
   });
 
-  it("shows no demo label in live mode", () => {
+  it("shows no demo label in live mode, and says that questions go to an AI provider", () => {
     const html = renderPage("live", ["One?"]);
     expect(html).not.toContain(escapeHtml(copy.demoNotice));
+    expect(html).toContain(escapeHtml(copy.privacyNotice));
     expect(html).toContain(">One?</button>");
   });
 

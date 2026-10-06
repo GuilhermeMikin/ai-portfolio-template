@@ -9,6 +9,11 @@
       "contact": "Como entrar em contato com {name}, disponibilidade atual e tempo de resposta."
     }
   },
+  "demoBanner": {
+    "label": "Sobre esta demonstração",
+    "text": "Demo de portfólio open source · Perfil fictício",
+    "cta": "Ver o código no GitHub"
+  },
   "nav": {
     "label": "Principal",
     "home": "Início",

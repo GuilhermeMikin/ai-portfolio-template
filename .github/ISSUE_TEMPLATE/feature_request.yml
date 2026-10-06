@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an improvement to the template.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do, and what gets in the way today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: How you would solve it, and what it changes for site owners and visitors.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: >-
+            I read "Keep the scope" in
+            [CONTRIBUTING.md](https://github.com/GuilhermeMikin/ai-portfolio-template/blob/main/CONTRIBUTING.md#before-you-start):
+            this fits a one-owner portfolio with an optional assistant that answers from the site's content.
+          required: true

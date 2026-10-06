@@ -1,6 +1,7 @@
 /**
- * Streaming client for any OpenAI-compatible Chat Completions API (OpenAI, OpenRouter,
- * Groq, a local server…), using plain fetch.
+ * Streaming client for the OpenAI Chat Completions API, using plain fetch. Other providers
+ * that implement the same API (OpenRouter, Groq, a local server…) can work, but they differ
+ * in accepted parameters, streaming and usage reporting.
  *
  * Never log or return prompts, message text, the API key or provider response bodies:
  * errors carry only a code, a retry hint and a short classification for the logs.
