@@ -55,6 +55,9 @@
     "ignoredBuiltDependencies": [
       "esbuild",
       "unrs-resolver"
-    ]
+    ],
+    "overrides": {
+      "postcss-selector-parser": "^7.1.6"
+    }
   }
 }
