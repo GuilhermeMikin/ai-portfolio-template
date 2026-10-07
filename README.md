@@ -7,6 +7,11 @@ A personal portfolio website with an optional AI assistant that answers visitors
 of the site. Built with Next.js, it is configured from one typed profile file per language and works with or
 without an AI provider.
 
+![A visitor types "Which technologies does Jordan use most?" into the assistant card on the home page; the chat panel opens and the answer streams in as a short list of languages, frontend, backend and applied AI skills](docs/screenshots/chat-live.gif)
+
+Recorded on the [live demo](https://ai-portfolio-template.mikin.ai) with the fictional example profile. The
+demo runs a real model, so the wording of its answers varies.
+
 ![Home page on desktop](docs/screenshots/home-desktop.png)
 
 <p align="center">
