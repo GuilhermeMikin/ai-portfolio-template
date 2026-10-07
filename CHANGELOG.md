@@ -7,6 +7,10 @@ All notable changes to this template are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- A "Questions and feedback" link in the issue chooser and the README, pointing to the author's contact page.
+
 ### Changed
 
 - The README says the live demo uses a real model (rate-limited), and how to see the assistant without an API

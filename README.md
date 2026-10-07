@@ -289,7 +289,8 @@ site with the live chat**:
 
 ## Contributing and security
 
-Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Everyone taking part follows the
+Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Questions and feedback are welcome too,
+through [mikin.ai/contact](https://mikin.ai/contact) or an issue. Everyone taking part follows the
 [Code of Conduct](CODE_OF_CONDUCT.md). Please report vulnerabilities privately as described in
 [SECURITY.md](SECURITY.md), which also lists what to configure before you expose the public chat endpoint with
 a live model.
@@ -297,7 +298,7 @@ a live model.
 ## Need help customizing it?
 
 The author offers paid setup and customization: your content, design adjustments, extra languages and
-deployment. Get in touch through [mikin.ai](https://mikin.ai).
+deployment. Get in touch through [mikin.ai/contact](https://mikin.ai/contact).
 
 ## License and credits
 
