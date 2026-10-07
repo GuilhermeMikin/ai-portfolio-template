@@ -14,15 +14,17 @@ improvements are all welcome. Everyone taking part follows the [Code of Conduct]
 
 ## Setup
 
-You need Node.js 22 or newer and pnpm (run `corepack enable` once if `pnpm` is missing).
+You need Node.js 22 or newer and pnpm (run `corepack enable` once if `pnpm` is missing; Node.js 25 and newer
+no longer bundle Corepack, so install it first with `npm install --global corepack@latest`).
 
 ```bash
 pnpm install
 pnpm dev                    # http://localhost:3000, chat off without a key
-CHAT_MODE=demo pnpm dev     # simulated chat replies, no API key and no cost
 ```
 
-The live chat needs your own `LLM_API_KEY` in `.env.local` (see `.env.example`). Never commit keys.
+For simulated chat replies (no API key and no cost), copy `.env.example` to `.env.local`, set `CHAT_MODE=demo`
+in it and restart `pnpm dev`. The live chat needs your own `LLM_API_KEY` in `.env.local` instead. Never commit
+keys.
 
 ## Checks
 

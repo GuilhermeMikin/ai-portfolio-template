@@ -23,14 +23,17 @@ this repository. The chat screenshot was taken in demo mode, where replies are s
 and labeled as such.
 
 **Live demo:** [ai-portfolio-template.mikin.ai](https://ai-portfolio-template.mikin.ai) runs this repository
-with the example profile, so you can try the assistant before installing anything.
+with the example profile and a real model (rate-limited, with daily caps), so you can try the assistant before
+installing anything.
 
 **See a customized implementation in production:** [mikin.ai](https://mikin.ai), the author's own portfolio.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGuilhermeMikin%2Fai-portfolio-template&project-name=ai-portfolio&repository-name=ai-portfolio)
 
 The button copies this repository to your Git account and deploys it as it is: the example profile, with the
-chat off. Then follow [Make it yours](#make-it-yours) and add the environment variables from
+chat off. To see the assistant without an API key, set `CHAT_MODE=demo` in the Vercel project's environment
+variables and redeploy (the chat mode is decided at build time, see [Configuration](#configuration)). Then
+follow [Make it yours](#make-it-yours) and add the environment variables from
 [docs/deployment.md](docs/deployment.md).
 
 ## What you get
@@ -126,15 +129,16 @@ rate limits and quotas → a streamed answer from the model, built from the syst
 
 ## Requirements
 
-- Node.js 22 or newer (an LTS release: 22 or 24)
-- pnpm 10 (`corepack enable` installs the version pinned in `package.json`)
+- Node.js 22 or newer (an LTS release: 22 or 24; `nvm use` picks the version in `.nvmrc`)
+- pnpm 10 (`corepack enable` installs the version pinned in `package.json`; Node.js 25 and newer no longer
+  bundle Corepack, so install it first with `npm install --global corepack@latest`)
 - Optional: an API key for a provider with an OpenAI-style Chat Completions API, an
   [Upstash](https://upstash.com) Redis database and a [Resend](https://resend.com) account
 
 ## Quick start
 
 ```bash
-corepack enable
+corepack enable   # on Node.js 25+, run `npm install --global corepack@latest` first
 pnpm install
 pnpm dev
 ```
@@ -285,7 +289,8 @@ site with the live chat**:
 
 ## Contributing and security
 
-Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Everyone taking part follows the
+Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Questions and feedback are welcome too,
+through [mikin.ai/contact](https://mikin.ai/contact) or an issue. Everyone taking part follows the
 [Code of Conduct](CODE_OF_CONDUCT.md). Please report vulnerabilities privately as described in
 [SECURITY.md](SECURITY.md), which also lists what to configure before you expose the public chat endpoint with
 a live model.
@@ -293,7 +298,7 @@ a live model.
 ## Need help customizing it?
 
 The author offers paid setup and customization: your content, design adjustments, extra languages and
-deployment. Get in touch through [mikin.ai](https://mikin.ai).
+deployment. Get in touch through [mikin.ai/contact](https://mikin.ai/contact).
 
 ## License and credits
 

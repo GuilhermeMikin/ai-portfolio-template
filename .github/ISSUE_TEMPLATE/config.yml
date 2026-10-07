@@ -6,3 +6,6 @@ contact_links:
   - name: Try the live demo
     url: https://ai-portfolio-template.mikin.ai
     about: The template running with the fictional example profile.
+  - name: Questions and feedback
+    url: https://mikin.ai/contact
+    about: "Questions, ideas or feedback on the setup and the assistant: write to the author."

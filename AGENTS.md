@@ -25,6 +25,9 @@ pnpm build            # content:check + next build
 pnpm eval             # model-quality evaluation against a running site; costs tokens, ask first
 ```
 
+Node.js 25 and newer no longer bundle Corepack: there, run `npm install --global corepack@latest` before
+`corepack enable`.
+
 Do not run `pnpm eval` or anything else that calls a paid API unless the owner asks for it.
 
 ## Playbook: setting up someone's portfolio
@@ -58,9 +61,9 @@ Do not run `pnpm eval` or anything else that calls a paid API unless the owner a
    UI text is in `messages.json` (site) and `chat.json` (assistant) in each language folder.
 5. **Validate.** Run `pnpm content:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm build`.
    Fix every error; read the warnings.
-6. **Try the assistant.** `CHAT_MODE=demo pnpm dev` needs no key. For real answers the owner adds
-   `LLM_API_KEY` (and optionally `LLM_BASE_URL`, `CHAT_MODEL`) to `.env.local` themselves. Never ask for, print
-   or commit keys.
+6. **Try the assistant.** Set `CHAT_MODE=demo` in `.env.local` and run `pnpm dev`; demo mode needs no key.
+   For real answers the owner adds `LLM_API_KEY` (and optionally `LLM_BASE_URL`, `CHAT_MODEL`) to `.env.local`
+   themselves. Never ask for, print or commit keys.
 7. **Hand over the deployment checklist** from `docs/deployment.md`: `NEXT_PUBLIC_SITE_URL`, Upstash for rate
    limits, a hard budget at the LLM provider, optional Resend for the contact form.
 

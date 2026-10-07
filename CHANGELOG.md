@@ -7,6 +7,25 @@ All notable changes to this template are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- `.nvmrc` with Node.js 24, the active LTS release tested in CI.
+- A "Questions and feedback" link in the issue chooser and the README, pointing to the author's contact page.
+
+### Changed
+
+- The README says the live demo uses a real model (rate-limited), and how to see the assistant without an API
+  key on a copy made with the "Deploy with Vercel" button (`CHAT_MODE=demo`).
+- `pnpm install` no longer warns about ignored build scripts: `pnpm.ignoredBuiltDependencies` in `package.json`
+  records that esbuild and unrs-resolver don't need theirs. No build scripts are allowed.
+
+### Fixed
+
+- Setup instructions for Node.js 25 and newer, which no longer bundle Corepack: install it with
+  `npm install --global corepack@latest` before `corepack enable`.
+- Demo mode is set in `.env.local` in every guide; `CHAT_MODE=demo pnpm dev` fails in the Windows command
+  prompt and PowerShell.
+
 ## [1.0.0] - 2026-10-05
 
 First public version, extracted from the author's personal portfolio and turned into a reusable template.
