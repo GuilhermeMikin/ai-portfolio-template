@@ -129,7 +129,7 @@ rate limits and quotas → a streamed answer from the model, built from the syst
 
 ## Requirements
 
-- Node.js 22 or newer (an LTS release: 22 or 24)
+- Node.js 22 or newer (an LTS release: 22 or 24; `nvm use` picks the version in `.nvmrc`)
 - pnpm 10 (`corepack enable` installs the version pinned in `package.json`; Node.js 25 and newer no longer
   bundle Corepack, so install it first with `npm install --global corepack@latest`)
 - Optional: an API key for a provider with an OpenAI-style Chat Completions API, an

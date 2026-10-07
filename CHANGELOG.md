@@ -9,12 +9,15 @@ All notable changes to this template are documented here. The format follows
 
 ### Added
 
+- `.nvmrc` with Node.js 24, the active LTS release tested in CI.
 - A "Questions and feedback" link in the issue chooser and the README, pointing to the author's contact page.
 
 ### Changed
 
 - The README says the live demo uses a real model (rate-limited), and how to see the assistant without an API
   key on a copy made with the "Deploy with Vercel" button (`CHAT_MODE=demo`).
+- `pnpm install` no longer warns about ignored build scripts: `pnpm.ignoredBuiltDependencies` in `package.json`
+  records that esbuild and unrs-resolver don't need theirs. No build scripts are allowed.
 
 ### Fixed
 
