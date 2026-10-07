@@ -26,6 +26,13 @@ All notable changes to this template are documented here. The format follows
 - Demo mode is set in `.env.local` in every guide; `CHAT_MODE=demo pnpm dev` fails in the Windows command
   prompt and PowerShell.
 
+### Security
+
+- `postcss-selector-parser`, which Tailwind CSS 3 uses at build time, is forced to 7.1.6 or newer through
+  `pnpm.overrides` in `package.json`, fixing
+  [GHSA-rj75-hqrm-r3gf](https://github.com/advisories/GHSA-rj75-hqrm-r3gf) (quadratic selector parsing). The
+  generated CSS is unchanged.
+
 ## [1.0.0] - 2026-10-05
 
 First public version, extracted from the author's personal portfolio and turned into a reusable template.
