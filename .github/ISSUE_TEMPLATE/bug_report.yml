@@ -20,7 +20,7 @@ body:
     attributes:
       label: Steps to reproduce
       placeholder: |
-        1. Run `CHAT_MODE=demo pnpm dev`
+        1. Set `CHAT_MODE=demo` in `.env.local` and run `pnpm dev`
         2. Open http://localhost:3000/en/projects
         3. …
     validations:

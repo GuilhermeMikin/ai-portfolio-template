@@ -130,14 +130,15 @@ rate limits and quotas → a streamed answer from the model, built from the syst
 ## Requirements
 
 - Node.js 22 or newer (an LTS release: 22 or 24)
-- pnpm 10 (`corepack enable` installs the version pinned in `package.json`)
+- pnpm 10 (`corepack enable` installs the version pinned in `package.json`; Node.js 25 and newer no longer
+  bundle Corepack, so install it first with `npm install --global corepack@latest`)
 - Optional: an API key for a provider with an OpenAI-style Chat Completions API, an
   [Upstash](https://upstash.com) Redis database and a [Resend](https://resend.com) account
 
 ## Quick start
 
 ```bash
-corepack enable
+corepack enable   # on Node.js 25+, run `npm install --global corepack@latest` first
 pnpm install
 pnpm dev
 ```
