@@ -7,6 +7,11 @@ All notable changes to this template are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- The README says the live demo uses a real model (rate-limited), and how to see the assistant without an API
+  key on a copy made with the "Deploy with Vercel" button (`CHAT_MODE=demo`).
+
 ## [1.0.0] - 2026-10-05
 
 First public version, extracted from the author's personal portfolio and turned into a reusable template.

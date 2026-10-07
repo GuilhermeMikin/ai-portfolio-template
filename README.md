@@ -23,14 +23,17 @@ this repository. The chat screenshot was taken in demo mode, where replies are s
 and labeled as such.
 
 **Live demo:** [ai-portfolio-template.mikin.ai](https://ai-portfolio-template.mikin.ai) runs this repository
-with the example profile, so you can try the assistant before installing anything.
+with the example profile and a real model (rate-limited, with daily caps), so you can try the assistant before
+installing anything.
 
 **See a customized implementation in production:** [mikin.ai](https://mikin.ai), the author's own portfolio.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGuilhermeMikin%2Fai-portfolio-template&project-name=ai-portfolio&repository-name=ai-portfolio)
 
 The button copies this repository to your Git account and deploys it as it is: the example profile, with the
-chat off. Then follow [Make it yours](#make-it-yours) and add the environment variables from
+chat off. To see the assistant without an API key, set `CHAT_MODE=demo` in the Vercel project's environment
+variables and redeploy (the chat mode is decided at build time, see [Configuration](#configuration)). Then
+follow [Make it yours](#make-it-yours) and add the environment variables from
 [docs/deployment.md](docs/deployment.md).
 
 ## What you get

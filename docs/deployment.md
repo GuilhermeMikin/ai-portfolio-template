@@ -31,6 +31,8 @@ Notes:
 
 - Without `NEXT_PUBLIC_SITE_URL`, the site uses Vercel's production domain (or the deployment URL for
   previews).
+- A copy made with the "Deploy with Vercel" button starts with the chat off. To see the assistant without an API
+  key, set `CHAT_MODE=demo` and redeploy.
 - `/api/chat` declares `maxDuration = 30`; the provider timeout defaults to 25 s so a timeout can still be
   reported to the visitor.
 - Set `ENABLE_VERCEL_ANALYTICS=true` and enable Web Analytics in the dashboard if you want it.
