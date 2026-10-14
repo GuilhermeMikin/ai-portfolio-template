@@ -18,6 +18,8 @@ All notable changes to this template are documented here. The format follows
   key on a copy made with the "Deploy with Vercel" button (`CHAT_MODE=demo`).
 - `pnpm install` no longer warns about ignored build scripts: `pnpm.ignoredBuiltDependencies` in `package.json`
   records that esbuild and unrs-resolver don't need theirs. No build scripts are allowed.
+- The README states the assistant's default context budget (24,000 characters), how much of it the example
+  profile uses, how to raise it and what that costs.
 
 ### Fixed
 
