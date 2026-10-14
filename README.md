@@ -279,9 +279,13 @@ site with the live chat**:
 
 ## Technical decisions
 
-- **Whole profile in the prompt instead of RAG.** A portfolio fits easily in the context window. Retrieval
-  would add infrastructure and failure modes without improving answers. `pnpm content:check` fails if the
-  content outgrows the budget instead of silently truncating it.
+- **Whole profile in the prompt instead of RAG.** A portfolio fits easily in the context window, and retrieval
+  would add infrastructure and failure modes without improving answers. The default budget is 24,000 characters
+  (about 6,000 tokens); the example profile uses about a third of it. `pnpm content:check`, which runs before
+  every build, shows your usage and fails before any section would be left out, so the assistant never silently
+  loses part of your profile. You can raise the budget (`CHAT_CONTEXT_MAX_CHARS` in `src/lib/ai/types.ts`);
+  every question sends the whole profile, so cost grows with it. Content far beyond that, such as a full blog
+  or hundreds of pages, is where retrieval starts to pay off.
 - **Client-managed history.** The server keeps no transcripts, which keeps the backend simple and limits what
   the site holds about visitors. It re-validates and trims the history it receives. In `live` mode the
   messages still reach your LLM provider.
